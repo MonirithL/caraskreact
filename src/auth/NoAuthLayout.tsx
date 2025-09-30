@@ -1,7 +1,7 @@
 import { useNavigate, Outlet } from "react-router";
 import { useEffect, useState } from "react";
 import { API_BASE_AUTH } from "../service/APIBaseUrl";
-export default function AuthLayout() {
+export default function NoAuthLayout() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
@@ -11,20 +11,25 @@ export default function AuthLayout() {
       credentials: "include",
     })
       .then(async (res) => {
-        if (!res.ok) throw new Error("Not authenticated");
-        return res.json();
+        if (res.status === 200) {
+          return res.json();
+        }
+        if (res.status === 401) {
+          return { user: null };
+        }
+        throw new Error(`Unexpected status: ${res.status}`);
       })
       .then((data) => {
         if (!data.user) {
-          navigate("/");
+          //do nth
         } else {
-          console.log(data);
-          setUser(data.user);
+          //if user then redirect
+          navigate("/home", { replace: true });
         }
       })
       .catch((err) => {
         console.log(err);
-        navigate("/");
+        //do nth
       });
   }, [navigate]);
   return <Outlet />;

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router";
+import { API_BASE_AUTH } from "../service/APIBaseUrl";
 
 export interface User {
   id: string;
@@ -7,6 +8,7 @@ export interface User {
   email: string;
   avatar_url: string | null;
 }
+//Add tier payment
 
 interface UserContextType {
   user: User | null;
@@ -31,7 +33,7 @@ export const UserProvider = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:3000/auth/", {
+        const res = await fetch(`${API_BASE_AUTH}/`, {
           method: "GET",
           credentials: "include",
         });

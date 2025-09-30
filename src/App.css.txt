@@ -1,0 +1,34 @@
+/* for generic fast styling class like padding */
+.main{
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#root{
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#root::-webkit-scrollbar{
+    display: none;
+}
+.app{
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+
+}
+.body{
+
+}
+.navbar_padding{
+    
+}
+.navbar{
+
+}

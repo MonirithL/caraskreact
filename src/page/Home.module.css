@@ -1,0 +1,30 @@
+.home{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    row-gap: 1.5rem;
+}
+.item_card{
+    position: relative;
+    background-color: rgba(var(--main-color-num), 1);
+    width: 100%;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1.8rem;
+    color: white;
+}
+.item_card>p{
+    width: 70%;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+.item_card>button{
+    border-radius: 4rem;
+    background-color: var(--white);
+    border-style: none;
+    padding: 0.8rem 1.5rem;
+}

@@ -1,0 +1,46 @@
+
+.navbar_inner{
+  flex-grow: 1;
+  background-color: var(--black-hint);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.navItem{
+    display: flex;
+    column-gap: 1rem;
+    background-color: transparent;
+    border-style: none;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navText{
+    display: none;
+    text-decoration: none;
+    color: inherit;
+}
+.icon{
+    color: inherit;
+    height: 2rem;
+}
+
+.selected *{
+  color: var(--main-color);
+}
+@media (min-width: 768px) {
+  .icon{
+    height: 1.5rem;
+  }
+  .navItem{
+    column-gap: 0.5rem;
+  }
+  .navbar{
+    max-width: 768px;
+
+  }
+  .navText{
+    display: block;
+  }
+}

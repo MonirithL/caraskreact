@@ -1,0 +1,18 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    padding: 1.3rem;
+    align-items: center;
+    width: 100%;
+}
+.body1{
+    width: 100%;
+}
+.divider{
+    display: flex;
+    justify-content: start;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+}

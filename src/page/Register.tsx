@@ -1,23 +1,22 @@
-import { ArrowLeft } from "lucide-react";
 import GoogleLogo from "../assets/logo_google.png";
-import style from "./Login.module.css";
+import style from "./Register.module.css";
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
-import {supabase} from "../service/SupabaseClient";
+import { supabase } from "../service/SupabaseClient";
 import { API_BASE_AUTH } from "../service/APIBaseUrl";
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [conPassword, setConPassword] = useState<string>("");
 
   //setup for func
   const navigate = useNavigate();
 
   const API_BASE = API_BASE_AUTH;
-  
 
-  async function login() {
-    const res = await fetch(`${API_BASE}/login/password`, {
+  async function register() {
+    const res = await fetch(`${API_BASE}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -25,15 +24,16 @@ export default function Login() {
     });
 
     if (!res.ok) {
-      throw new Error("Login failed");
+      throw new Error("Register failed");
     }
+    //res is okay, sign user in
     navigate("/home", { replace: true });
   }
   async function loginWithGoogle() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${API_BASE}/callback`,
+        redirectTo: "http://localhost:5173/auth/callback",
       },
     });
   }
@@ -54,8 +54,11 @@ export default function Login() {
     <div className={`main ${style.main}`}>
       <div className={style.logo_cont}>logo</div>
       <div className={style.purpose_card}>
-        <h2>Login</h2>
-        <p>Login to save and track progress Or to retore personal details!</p>
+        <h2>SIGN UP</h2>
+        <p>
+          Looks like you are new to this, no worries! Let’s get started in a
+          jiffy!
+        </p>
       </div>
       <div className={style.input_cont}>
         <input
@@ -76,6 +79,19 @@ export default function Login() {
             setPassword(e.target.value)
           }
         />
+        <input
+          type="password"
+          value={conPassword}
+          placeholder="Confirm Password"
+          className={style.inputs}
+          onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setConPassword(e.target.value)
+          }
+        />
+        <p className={style.signinTos}>
+          By selecting Create Account below, I agree to the Terms of Services of
+          Condition and Privacy Policy.
+        </p>
         <motion.button
           transition={{ duration: 0.5, ease: "easeOut" }}
           whileTap={{
@@ -89,9 +105,9 @@ export default function Login() {
           }}
           whileHover={{ scale: 1.02, transition: { duration: 0.1 } }}
           className={style.loginbtn}
-          onClick={login}
+          onClick={register}
         >
-          <h2>LOGIN</h2>
+          <h3>CREATE ACCOUNT</h3>
         </motion.button>
       </div>
       <div className={style.divider}>
@@ -119,27 +135,8 @@ export default function Login() {
             <p>Sign in with Google</p>
           </div>
         </motion.button>
-        <motion.button
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          whileTap={{
-            scale: 0.9,
-            transition: {
-              type: "spring",
-              stiffness: 300,
-              damping: 20,
-              duration: 0.2,
-            },
-          }}
-          whileHover={{ scale: 1.02, transition: { duration: 0.1 } }}
-          className={style.otherSigninbtn}
-          onClick={() => navigate("/register")}
-        >
-          <div>
-            <p>Register a Career Ask Account</p>
-          </div>
-        </motion.button>
-        <button className={style.guestbtn} onClick={loginAsGuest}>
-          <h5>CONTINUE AS GUEST</h5>
+        <button className={style.guestbtn} onClick={() => navigate("/login")}>
+          <h5>BACK TO LOGIN</h5>
         </button>
       </div>
     </div>

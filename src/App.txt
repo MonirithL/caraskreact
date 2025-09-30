@@ -1,0 +1,76 @@
+import { useState } from "react";
+
+import { useNavigate } from "react-router";
+import { supabase } from "./service/SupabaseClient";
+import { API_BASE_AUTH } from "./service/APIBaseUrl";
+
+function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const API_BASE = API_BASE_AUTH; // your express server
+
+  // Login with email + password
+  async function loginWithPassword() {
+    const res = await fetch(`${API_BASE}/login/password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error("Login failed");
+    }
+    navigate("/home", { replace: true });
+  }
+
+  // Start Google OAuth login
+  async function loginWithGoogle() {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${API_BASE}/callback`,
+      },
+    });
+  }
+
+  // Register new account
+  async function register() {
+    const res = await fetch(`${API_BASE}/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error("Register failed");
+    }
+    return res.json();
+  }
+  return (
+    <>
+      <div>Email:&nbsp;</div>
+      <input
+        type="text"
+        value={email}
+        onChange={(e) => setEmail(e.target.value.trim())}
+      />
+      <div>Password:&nbsp;</div>
+      <input
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value.trim())}
+      />
+      <div>
+        <button onClick={register}>Register</button>
+        <button onClick={loginWithPassword}>Login</button>
+        <button onClick={loginWithGoogle}>Login with google</button>
+      </div>
+    </>
+  );
+}
+
+export default App;

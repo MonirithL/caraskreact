@@ -1,0 +1,129 @@
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    row-gap: 0.5rem;
+}
+.main>*{
+    width: 100%;
+}
+.appbar{
+display: flex;
+justify-content: start;
+}
+.back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    border-style: none;
+    background-color: var(--white-dim);
+    height: 3.5rem;
+    width: 3.5rem;
+}
+.logo_cont{
+
+}
+.purpose_card{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding-bottom: 1.5rem;
+}
+.purpose_card>p{
+    overflow-wrap: break-word;
+    width: 80%;
+    color:var(--black-hint)
+}
+.input_cont{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.inputs{
+    color: var(--black-hint);
+    font-size: var(--h3);
+    padding: 1rem;
+    border-style: none;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+.loginbtn{
+    font-family: "Open Sans", sans-serif;
+    
+    color: var(--white);
+    font-size: var(--h4);
+    padding: 0.8rem;
+    background-color: var(--main-color);
+    border-style: none;
+    border: none;
+    border-radius: 0.25rem;
+}
+.loginbtn>h2{
+    font-weight: 500;
+}
+.loginbtn:focus{
+    outline: 0;
+}
+.divider{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.divider_abs{
+    position: absolute;
+    background-color: var(--white-bg);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    z-index: -1;
+    
+    /* transform: translate(-50%,-50%); */
+}
+.line{
+    background-color: rgba(var(--black-hint-num),0.15);
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    z-index: -3;
+}
+
+.other_input_cont{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.otherSigninbtn{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    font-family: "Open Sans", sans-serif;
+    
+    color: var(--black);
+    font-size: var(--h4);
+    padding: 1.2rem;
+    background-color: var(--white);
+    border-style: none;
+    border: none;
+    border-radius: 0.25rem;
+    align-items: center;
+    width: 100%;
+}
+.otherSigninbtn>div{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.otherSigninbtn>img{
+    width: 1.71rem;
+    height: 1.71rem;
+}
+.guestbtn{
+    border-style: none;
+    background-color: transparent;
+    padding-top: 2rem;
+}

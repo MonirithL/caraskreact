@@ -1,68 +1,127 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+html{
+  font-size: 14px !important;
+  font-family: "Roboto", sans-serif;
+  /* font-optical-sizing: auto; */
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
-body {
+*{
+  padding: 0;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  box-sizing: border-box;
+}
+body, html, #root{
+  width:100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* 24px bold opensans*/
+h1{
+  font-size: 1.71rem;
+  font-family: "Open Sans", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+/* 20px bold opensans*/
+h2{
+  font-size: 1.42rem;
+  font-family: "Open Sans", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+/* 18px medium opensans*/
+h3{
+  font-size: 1.28rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
-button:hover {
-  border-color: #646cff;
+/* 16px regular roboto*/
+h4{
+  font-size: 1.14rem;
+  font-family: "Roboto", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+h5{
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+/* 14px regular roboto */
+p{
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+:root{
+  --h1:1.71rem;
+  --h2:1.42rem;
+  --h3:1.28rem;
+  --h4:1.14rem;
+  --p:1rem;
+  --main-color-num: 242, 133, 0;
+  --main-color: rgb(var(--main-color-num));
+
+  --main-bright-num: 237,140,36;
+  --main-bright: rgb(var(--main-bright-num));
+
+  --black-num: 10,10,10;
+  --black: rgb(var(--black-num));
+
+  --black-hint-num: 95,95,95;
+  --black-hint:rgb(var(--black-hint-num));
+
+  --white-num: 255,255,255;
+  --white:rgb(var(--white-num));
+
+  --white-bg-num: 244,244,244;
+  --white-bg:rgb(var(--white-bg-num));
+
+  --white-dim-num: 235,235,235;
+  --white-dim: rgb(var(--white-dim-num));
+
+  --brown-num: 67,40,28;
+  --brown: rgb(var(--brown-num));
+}
+.orange{
+  color: var(--main-color)
+}
+.white{
+  color: var(--white)
+}
+.orange-bd{
+  border: 1px solid var(--main-color);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+body{
+  background-color: rgb(var(--white-bg-num));
 }

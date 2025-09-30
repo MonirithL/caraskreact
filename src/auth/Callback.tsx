@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { API_BASE_AUTH } from "../service/APIBaseUrl";
 
 export default function Callback() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Callback() {
       return;
     }
 
-    fetch("http://localhost:3000/auth/callback", {
+    fetch(`${API_BASE_AUTH}/callback`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
