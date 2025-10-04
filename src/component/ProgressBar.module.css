@@ -1,0 +1,42 @@
+.outer{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 1rem;
+    height: 2rem;
+    padding: 0 0.8rem;
+    border: 1px solid rgba(var(--black-hint-num),0.2);
+    border-radius: 1rem;
+    position: relative;
+    padding-right: 2rem;
+}
+@media (min-width: 768px) {
+    .outer{
+        max-width: 768px;
+    }
+}
+.bar{
+    width: 100%;
+    height: 0.8rem;
+    background-color: rgba(var(--black-hint-num),0.2);
+    border-radius: 0.4rem;
+    border-style: none;
+}
+.bar::-webkit-progress-bar{
+    background-color: rgba(var(--black-hint-num),0.2);
+    border-radius: 0.4rem;
+}
+.bar::-webkit-progress-value{
+    background-color: var(--main-color);
+    border-radius: 0.4rem;
+    transition: width 0.3s ease;
+}
+.bar::-moz-progress-bar{
+    background-color: var(--main-color);
+    border-radius: 0.4rem;
+    transition: width 0.3s ease;
+}
+.counter{
+    color: var(--main-color);
+}

@@ -59,7 +59,7 @@ export const UserProvider = () => {
           setUserState(null); // ensure user is null if no data
         }
       } catch (err) {
-        console.error("Failed to fetch user:", err);
+        // console.error("Failed to fetch user:", err);
         setUserState(null); // set user null on error
       }
     };

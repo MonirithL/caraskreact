@@ -16,6 +16,9 @@ import Login from "./page/Login.tsx";
 import Register from "./page/Register.tsx";
 import Account from "./page/Account.tsx";
 import App from "./App.tsx";
+import Qna from "./page/Qna.tsx";
+import Logout from "./page/Logout.tsx";
+import Discovery from "./page/Discovery.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -30,20 +33,27 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/auth/callback" element={<Callback />} />
         </Route>
 
-        {/* SHOULD actually be like,  if user is not logged in at / then go from the / -> home*/}
         <Route element={<App />}>
-          <Route element={<UserProvider />}>
-            <Route path="/testing" element={<Account />}></Route>
-            <Route element={<AuthLayout />}>
+          <Route path="/testing" element={<Discovery />}></Route>
+        </Route>
+
+        {/* SHOULD actually be like,  if user is not logged in at / then go from the / -> home*/}
+        <Route element={<UserProvider />}>
+          <Route element={<AuthLayout />}>
+            <Route element={<App />}>
               <Route path="/home" element={<Home />} />
-              {/* <Route path="/discovery" />
-              <Route path="/qna" />
+              <Route path="/account" element={<Account />} />
+              <Route path="/qna" element={<Qna />} />
+              <Route path="/discovery" element={<Discovery />} />
+              {/*               
               <Route path="/result_tempo" />
               <Route path="/result" />
               <Route path="/progress" />
               <Route path="/explore" />
-              <Route path="/account" />
-              <Route path="/manage">
+               */}
+            </Route>
+            <Route path="/logout" element={<Logout />} />
+            {/* <Route path="/manage">
                 <Route path="/account_info" />
                 <Route path="/accounts" />
                 <Route path="/subscription" />
@@ -51,7 +61,6 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/aboutapp" />
                 <Route path="/support" />
               </Route> */}
-            </Route>
           </Route>
         </Route>
       </Routes>

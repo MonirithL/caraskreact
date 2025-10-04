@@ -34,7 +34,7 @@ export default function Account() {
           menu_name="Log out"
           menu_sub="Exit your account"
           Menu_icon={LogOut}
-          menu_route="/manage/accounts"
+          menu_route="/logout"
         />
         <div className={style.divider}>
           <h4>More</h4>

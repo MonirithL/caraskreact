@@ -1,0 +1,11 @@
+.answer{
+    display: flex;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(var(--black-hint-num), 0.2);
+    width: 100%;
+}
+.answer>p{
+    color: rgba(var(--black-hint-num), 0.8);
+}

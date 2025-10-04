@@ -1,7 +1,7 @@
 
 /* for generic fast styling class like padding */
 
-.main{
+.base{
     height: 100%;
     position: relative;
     width: 100%;
@@ -33,11 +33,17 @@
 .header{
     display: flex;
     width: 100%;
-    padding: 1rem;
     align-items: center;
+}
+.appbar{
+    padding: 1rem;
+    color: var(--main-color)
 }
 .body{
     flex-grow: 1;
+    min-height: 0;
+    min-width: 0;
+    padding: 0.5rem;
 }
 .navbar_padding{
     height: 5rem;
@@ -54,6 +60,10 @@
 }
 .navbar *{
     color: var(--white)
+}
+
+.appbar_pc{
+    display: none;
 }
 
 @media (min-width: 768px) {
@@ -77,5 +87,11 @@
 }
 .header h2{
     font-size: 1rem;
+}
+.appbar_mobile{
+    display: none;
+}
+.appbar_pc{
+    display: block;
 }
 }

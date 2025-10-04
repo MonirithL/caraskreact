@@ -3,8 +3,7 @@
   flex-grow: 1;
   background-color: var(--black-hint);
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
+  justify-content: space-around;
   border-radius: 0.5rem;
 }
 .navItem{
@@ -14,7 +13,10 @@
     border-style: none;
     align-items: center;
     text-decoration: none;
+    padding: 1rem;
+    border-radius: 2rem;
 }
+
 
 .navText{
     display: none;
@@ -35,6 +37,15 @@
   }
   .navItem{
     column-gap: 0.5rem;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .navItem:hover{
+    background-color: rgba(var(--black-hint-num),0.2);
+    border-radius: 0;
+    transition: background-color 0.25s ease-out;
+    
   }
   .navbar{
     max-width: 768px;
