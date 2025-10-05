@@ -4,8 +4,7 @@ import { API_BASE_AUTH } from "../service/APIBaseUrl";
 export default function AuthLayout() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  function checkAuth() {
     fetch(`${API_BASE_AUTH}/`, {
       method: "GET",
       credentials: "include",
@@ -18,7 +17,7 @@ export default function AuthLayout() {
         if (!data.user) {
           navigate("/");
         } else {
-          console.log(data);
+          // console.log(data);
           setUser(data.user);
         }
       })
@@ -26,6 +25,10 @@ export default function AuthLayout() {
         console.log(err);
         navigate("/");
       });
+  }
+  useEffect(() => {
+    checkAuth();
   }, [navigate]);
+
   return <Outlet />;
 }

@@ -45,3 +45,43 @@
     flex-direction: column;
     align-items: start;
 }
+.item{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    border-style: none;
+    background-color: transparent;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding: 0.5rem;
+}
+.item:hover{
+    transition: box-shadow 0.3s ease-in;
+    border-radius: 0.8rem;
+    box-shadow: -0.3rem 0.4rem 0.4rem rgba(var(--black-hint-num), 0.08),
+    -0.3rem 0.8rem 1.5rem rgba(var(--black-hint-num), 0.12)
+    ;
+}
+.item_text{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.item_btn{
+    display: flex;
+    align-items: center;
+}
+.item_inner_btn{
+    display: flex;
+    align-items: center;
+    border-style: none;
+    background-color: transparent;
+    color: var(--black-hint)
+}
+.item_inner_symbol{
+    color: var(--main-color);
+    height: 2rem;
+    width: 2rem;
+}
+

@@ -19,6 +19,8 @@ import App from "./App.tsx";
 import Qna from "./page/Qna.tsx";
 import Logout from "./page/Logout.tsx";
 import Discovery from "./page/Discovery.tsx";
+import Progress from "./page/Progress.tsx";
+import Explore from "./page/Explore.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -45,11 +47,11 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/account" element={<Account />} />
               <Route path="/qna" element={<Qna />} />
               <Route path="/discovery" element={<Discovery />} />
+              <Route path="/progress" element={<Progress />} />
+              <Route path="/explore" element={<Explore />} />
               {/*               
               <Route path="/result_tempo" />
               <Route path="/result" />
-              <Route path="/progress" />
-              <Route path="/explore" />
                */}
             </Route>
             <Route path="/logout" element={<Logout />} />

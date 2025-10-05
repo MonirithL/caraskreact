@@ -3,7 +3,6 @@
 
 .base{
     height: 100%;
-    position: relative;
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -13,6 +12,8 @@
     flex-direction: column;
     align-items: center;
     /* max-width: 768px; */
+
+
 }
 #root{
     display: flex;
@@ -24,10 +25,12 @@
 .app{
     flex-grow: 1;
     width: 100%;
-
+    
     display: flex;
     flex-direction: column;
     max-width: 768px;
+    /* min-height: 0; */
+    position: relative;
 }
 
 .header{
@@ -45,10 +48,7 @@
     min-width: 0;
     padding: 0.5rem;
 }
-.navbar_padding{
-    height: 5rem;
-    
-}
+
 .navbar{
     width: 100%;
     position: sticky;

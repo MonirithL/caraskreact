@@ -148,6 +148,9 @@ body{
 .main::-webkit-scrollbar{
   width: none;
 }
+.w-full{
+  width: 100%;
+}
 .none{
   display: none;
 }

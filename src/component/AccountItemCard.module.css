@@ -7,9 +7,9 @@
     width: 100%;
     align-items: center;
     padding-right: 1rem;
+    transition: box-shadow 0.3s ease-in;
 }
 .main:hover{
-    transition: box-shadow 0.3s ease-in;
     border-radius: 0.8rem;
     box-shadow: -0.3rem 0.4rem 0.4rem rgba(var(--black-hint-num), 0.08),
     -0.3rem 0.8rem 1.5rem rgba(var(--black-hint-num), 0.12)

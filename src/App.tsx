@@ -29,16 +29,15 @@ export default function App() {
       <div className="app">
         <div className="body">
           <Outlet />
-          
         </div>
-        {hideLayout ? (
-          <></>
-        ) : (
-          <div className="navbar">
-            <Navbar />
-          </div>
-        )}
       </div>
+      {hideLayout ? (
+        <></>
+      ) : (
+        <div className="navbar">
+          <Navbar />
+        </div>
+      )}
     </div>
   );
 }

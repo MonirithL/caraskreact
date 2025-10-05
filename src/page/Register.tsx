@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { supabase } from "../service/SupabaseClient";
-import { API_BASE_AUTH } from "../service/APIBaseUrl";
+import { API_BASE_AUTH, CLIENT_BASE_AUTH } from "../service/APIBaseUrl";
 export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -33,7 +33,7 @@ export default function Register() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173/auth/callback",
+        redirectTo: `${CLIENT_BASE_AUTH}/callback`,
       },
     });
   }

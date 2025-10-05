@@ -15,6 +15,11 @@
     text-decoration: none;
     padding: 1rem;
     border-radius: 2rem;
+    -webkit-tap-highlight-color: transparent;
+}
+.navItem:active{
+  border-radius: 4rem;
+  background-color: rgba(var(--main-color-num),0.2);
 }
 
 
