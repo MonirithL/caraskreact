@@ -31,7 +31,8 @@
 .action{
     border-style: none;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    column-gap: 0.3rem;
     align-content: center;
     background-color: var(--main-color);
     border-radius: 0.4rem;
