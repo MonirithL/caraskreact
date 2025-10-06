@@ -3,6 +3,7 @@ import { useUser } from "../context/UserContext";
 import style from "./Home.module.css";
 export default function Home() {
   const { user } = useUser();
+  console.log(user);
   const navigate = useNavigate();
   async function logout() {
     const res = await fetch(`http://localhost:3000/auth/logout`, {
@@ -15,7 +16,6 @@ export default function Home() {
     }
     navigate("/", { replace: true });
   }
-  console.log("user avatar: " + user?.avatar_url);
 
   // async function getTest() {
   //   const res = await fetch(`${API_BASE_TEST}/`, {

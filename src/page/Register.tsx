@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { supabase } from "../service/SupabaseClient";
 import { API_BASE_AUTH, CLIENT_BASE_AUTH } from "../service/APIBaseUrl";
+import AppbarLogo from "../component/AppbarLogo";
 export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -52,7 +53,9 @@ export default function Register() {
 
   return (
     <div className={`main ${style.main}`}>
-      <div className={style.logo_cont}>logo</div>
+      <div className={style.logo_cont}>
+        <AppbarLogo />
+      </div>
       <div className={style.purpose_card}>
         <h2>SIGN UP</h2>
         <p>

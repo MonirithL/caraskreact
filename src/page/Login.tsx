@@ -4,8 +4,9 @@ import style from "./Login.module.css";
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
-import {supabase} from "../service/SupabaseClient";
+import { supabase } from "../service/SupabaseClient";
 import { API_BASE_AUTH, CLIENT_BASE_AUTH } from "../service/APIBaseUrl";
+import AppbarLogo from "../component/AppbarLogo";
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -14,7 +15,6 @@ export default function Login() {
   const navigate = useNavigate();
 
   const API_BASE = API_BASE_AUTH;
-  
 
   async function login() {
     const res = await fetch(`${API_BASE}/login/password`, {
@@ -52,7 +52,9 @@ export default function Login() {
 
   return (
     <div className={`main ${style.main}`}>
-      <div className={style.logo_cont}>logo</div>
+      <div className={style.logo_cont}>
+        <AppbarLogo />
+      </div>
       <div className={style.purpose_card}>
         <h2>Login</h2>
         <p>Login to save and track progress Or to retore personal details!</p>

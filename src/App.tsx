@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Outlet, useLocation } from "react-router";
 import Navbar from "./component/Navbar";
+import AppbarLogo from "./component/AppbarLogo";
 
 const noAuthLayoutRoutes = ["/manage", "/qna", "/testing"];
 export default function App() {
@@ -20,7 +21,9 @@ export default function App() {
       <div className="header">
         <div className={`appbar ${hideLayout ? "none" : ""}`}>
           <h1 className="appbar_mobile">{capitalized}</h1>
-          <div className="appbar_pc">THis is appbar pc</div>
+          <div className="appbar_pc">
+            <AppbarLogo />
+          </div>
         </div>
         <div className="navbar_pc">
           <Navbar></Navbar>

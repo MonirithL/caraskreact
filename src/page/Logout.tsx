@@ -8,8 +8,7 @@ export default function Logout() {
   async function logout() {
     console.log(`preparing to call ${API_BASE_AUTH}/logout`);
     const res = await fetch(`${API_BASE_AUTH}/logout`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: "GET",
       credentials: "include",
     });
     console.log("logout called after fetch");

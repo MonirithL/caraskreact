@@ -1,12 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState,useCallback } from "react";
 import { Outlet } from "react-router";
-import { API_BASE_AUTH } from "../service/APIBaseUrl";
+import { API_BASE } from "../service/APIBaseUrl";
 
 export interface User {
-  id: string;
-  username: string;
+  name: string;
   email: string;
-  avatar_url: string | null;
+  profile_img: string | null;
 }
 //Add tier payment
 
@@ -24,42 +23,48 @@ const UserContext = createContext<UserContextType>({
 
 export const UserProvider = () => {
   const [user, setUserState] = useState<User | null>(null);
-  const setUser = (newUser: User) => {
-    setUserState(newUser);
-  };
-  const removeUser = () => {
-    setUserState(null);
-  };
+  // const setUser = (newUser: User) => {
+  //   setUserState(newUser);
+  // };
+  // const removeUser = () => {
+  //   setUserState(null);
+  // };
+
+  const setUser = useCallback((newUser: User) => setUserState(newUser), []);
+  const removeUser = useCallback(() => setUserState(null), []);
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`${API_BASE_AUTH}/`, {
+        const res = await fetch(`${API_BASE}/user/`, {
           method: "GET",
           credentials: "include",
         });
 
         if (!res.ok) {
+          console.log("USERCONTEXT: res!ok");
           setUserState(null);
           return;
         }
 
         const data = await res.json();
+
         if (data?.user) {
-          console.log(data);
+          if (data.user.type === "guest") {
+            setUserState(null);
+            return;
+          }
           const user_data: User = {
-            id: data.user.id,
-            username:
-              data.user.user_metadata.full_name ||
-              data.user.email.split("@")[0],
+            profile_img: data.user.profile_img,
+            name: data.user.name,
             email: data.user.email,
-            avatar_url: data.user.user_metadata.avatar_url || null,
           };
+
           setUserState(user_data);
         } else {
           setUserState(null); // ensure user is null if no data
         }
       } catch (err) {
-        // console.error("Failed to fetch user:", err);
+        console.error("Failed to fetch user:", err);
         setUserState(null); // set user null on error
       }
     };

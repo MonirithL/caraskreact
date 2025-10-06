@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { supabase } from "../service/SupabaseClient";
 import { motion } from "motion/react";
 import { API_BASE_AUTH } from "../service/APIBaseUrl";
+import AppbarLogo from "../component/AppbarLogo";
 
 function Landing() {
   const [email, setEmail] = useState("");
@@ -118,7 +119,9 @@ function Landing() {
       </div>
 
       <div className={sty.inputs}>
-        <div className={sty.header}>Career ask</div>
+        <div className={sty.header}>
+          <AppbarLogo alter={true} min={true} />
+        </div>
 
         <div className={sty.buttons}>
           <motion.button

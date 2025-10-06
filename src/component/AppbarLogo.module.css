@@ -1,0 +1,26 @@
+.appbarlogo{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.logo{
+    object-fit: contain;
+    height: 3rem;
+}
+
+
+.title, .alter{
+    display: flex;
+}
+.title>h1:nth-child(2){
+    color: var(--brown);
+}
+.title>h1:nth-child(1){
+    color: var(--main-color);
+}
+.alter>h1:nth-child(2){
+    color: var(--brown);
+}
+.alter>h1:nth-child(1){
+    color: var(--white);
+}

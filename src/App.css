@@ -65,6 +65,9 @@
 .appbar_pc{
     display: none;
 }
+.appbar_mobile{
+    padding-left: 1rem;
+}
 
 @media (min-width: 768px) {
     .navbar{

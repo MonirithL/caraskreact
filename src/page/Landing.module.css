@@ -9,6 +9,9 @@
     overflow: hidden;
 
 }
+.header{
+    padding-top: 2rem;
+}
 .contents{
     position: absolute;
     width: 100%;
@@ -18,6 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transform: translateY(-2rem);
 }
 .decor{
     position: absolute;
@@ -39,8 +43,8 @@
         rgba(var(--main-color-num),0.7) 0%,
         rgba(var(--main-color-num),0.7) 50%,
         rgba(var(--main-color-num),0.5) 50%,
-        rgba(var(--main-color-num),0.5) 70%,
-        var(--main-color) 70%,
+        rgba(var(--main-color-num),0.5) 75%,
+        var(--main-color) 75%,
         var(--main-color) 100%
     );
     height: 200vw;
@@ -63,13 +67,57 @@
     z-index: -1;
     background-image: radial-gradient(
         circle farthest-corner at 50% 100%,
-        var(--main-color) 0%,
-        var(--main-color) 35%,
+        color-mix(in srgb, rgb(var(--main-color-num)) 80%, white) 0%,
+        color-mix(in srgb, rgb(var(--main-color-num)) 80%, white) 35%,
         transparent 35%,
         transparent 100%
     );
     height: 200vw;
     width: 200vw;
+}
+@media (min-width:500px) and (max-width:767px){
+    .coaster{
+        background-image: radial-gradient(
+        circle farthest-corner at 50% 110%,
+        color-mix(in srgb, rgb(var(--main-color-num)) 80%, white) 0%,
+        color-mix(in srgb, rgb(var(--main-color-num)) 80%, white) 35%,
+        transparent 35%,
+        transparent 100%
+    );
+    }
+}
+@media (min-width:768px){
+    .coaster{
+        flex-grow: 1;
+        z-index: -1;
+        background-image: radial-gradient(
+            circle farthest-corner at 50% 110%,
+            color-mix(in srgb, rgb(var(--main-color-num)) 80%, white) 0%,
+            color-mix(in srgb, rgb(var(--main-color-num)) 80%, white) 35%,
+            transparent 35%,
+            transparent 100%
+        );
+        height: 100vw;
+        width: 100vw;
+    }
+    .circles{
+        flex-grow: 1;
+        z-index: -3;
+        background-image: radial-gradient(
+            circle farthest-corner at 50% 100%,
+            rgba(var(--main-color-num),0.7) 0%,
+            rgba(var(--main-color-num),0.7) 50%,
+            rgba(var(--main-color-num),0.5) 50%,
+            rgba(var(--main-color-num),0.5) 75%,
+            var(--main-color) 75%,
+            var(--main-color) 100%
+        );
+        height: 100vw;
+        width: 100vw;
+    }
+    .contents{
+        transform: translateY(-1rem);
+    }
 }
 .inputs{
     display: flex;
@@ -118,6 +166,7 @@
     max-width: 100%;
     height: 50vh;
     max-height: 100%;
+    object-fit: contain;
 }
 .contents_in{
     display: flex;
