@@ -1,0 +1,36 @@
+.card{
+    width: 100%;
+    background-color: var(--white);
+    padding: 0.8rem 0.4rem;
+    display: flex;
+    column-gap: 0.8rem;
+    border-radius: 0.4rem;
+    align-items: center;
+}
+.profile{
+    margin-right: auto;
+    display: block;
+    object-fit: contain;
+    height: 4rem;
+    width: 4rem;
+    clip-path: circle(50% at 50% 50%);
+}
+.left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--main-color);
+    border-radius: 5rem;
+}
+.texts{
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    padding:0.8rem 0rem;
+}
+.texts>h3{
+    text-overflow: ellipsis;
+}

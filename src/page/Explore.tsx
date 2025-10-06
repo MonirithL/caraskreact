@@ -72,7 +72,7 @@ export default function Explore() {
         }}
       >
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-          <div className={style.term}>
+          <div key={`term${i}`} className={style.term}>
             <p>Search term {i}</p>
             <button>
               <X className={style.remove_btn} />

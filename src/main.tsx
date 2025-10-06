@@ -21,6 +21,7 @@ import Logout from "./page/Logout.tsx";
 import Discovery from "./page/Discovery.tsx";
 import Progress from "./page/Progress.tsx";
 import Explore from "./page/Explore.tsx";
+import AccountInfo from "./page/manage/AccountInfo.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -49,6 +50,9 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/discovery" element={<Discovery />} />
               <Route path="/progress" element={<Progress />} />
               <Route path="/explore" element={<Explore />} />
+              <Route path="/manage">
+                <Route path="account_info" element={<AccountInfo />} />
+              </Route>
               {/*               
               <Route path="/result_tempo" />
               <Route path="/result" />

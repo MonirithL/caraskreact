@@ -8,15 +8,17 @@ import {
 } from "lucide-react";
 import AccountItemCard from "../component/AccountItemCard";
 import style from "./Account.module.css";
+import UserBlock from "../component/UserBlock";
 export default function Account() {
   return (
     <div className={style.main}>
+      <UserBlock />
       <div className={style.body1}>
         <AccountItemCard
           menu_name="My Account"
           menu_sub="Manage Account(s)"
           Menu_icon={CircleUser}
-          menu_route="/manage/accounts"
+          menu_route="/manage/account_info"
         />
         <AccountItemCard
           menu_name="Account Subscription Plan"
