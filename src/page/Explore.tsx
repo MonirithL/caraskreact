@@ -1,10 +1,13 @@
 import { ChevronDown, X } from "lucide-react";
 import style from "./Explore.module.css";
-import { useState } from "react";
+import {useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
+import { useUser } from "../context/UserContext";
+import NotSignIn from "../component/NoSignedIn";
 
 export default function Explore() {
+  const { user } = useUser();
   const navigate = useNavigate();
   const [showTerms, setShowTerms] = useState(false);
 
@@ -12,18 +15,18 @@ export default function Explore() {
     setShowTerms(!showTerms);
   }
 
-  function search() {
-    //send fetch with the terms and current text(remove duplicates): express send back
-    //put results []careers
-  }
-  function teleprompter() {
-    //prompt users to add something
-    //uses gemini, send the current prompters to gemini after a search and returns a suggestion
-  }
+  // function search() {
+  //   //send fetch with the terms and current text(remove duplicates): express send back
+  //   //put results []careers
+  // }
+  // function teleprompter() {
+  //   //prompt users to add something
+  //   //uses gemini, send the current prompters to gemini after a search and returns a suggestion
+  // }
 
-  function removeTerm(index: number) {
-    //remove a term from the terms list
-  }
+  // function removeTerm(index: number) {
+  //   //remove a term from the terms list
+  // }
   function seeMore(route: string, data: string) {
     //data can be obj type
     navigate(route, { state: data });
@@ -33,6 +36,10 @@ export default function Explore() {
 
     // console.log(data);
     // return <div>{data?.title}</div>;
+  }
+
+  if (user === null) {
+    return <NotSignIn />;
   }
   return (
     <div className={style.main}>
@@ -98,7 +105,7 @@ export default function Explore() {
                 <h5>Career {i}</h5>
                 <p>Why is it match the career thingy</p>
               </div>
-              <div className={style.right}>see more</div>
+              <div className={style.right} onClick={()=>{seeMore("/","hello")}}>see more</div>
             </button>
           ))}
         </div>

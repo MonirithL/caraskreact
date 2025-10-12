@@ -17,6 +17,13 @@
     padding: 0.5rem;
 
 }
+.questWrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .backAbs{
     display: flex;
     align-items: center;

@@ -10,30 +10,27 @@ interface ConcaveRectProp {
 
 export default function ConcaveRect({
   width,
-  height = 250,
-  img = "https://placehold.co/600x400",
+  height = 350,
+  img = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F5778%2F5778542.png&f=1&nofb=1&ipt=78597a4f4aca0e0eb5701e135497ae8871ec1e7cf05139d891481c6282b75f49",
   question = "Loading",
 }: ConcaveRectProp) {
   // memoize geometry values
-  const { x1, x2, x0, x20, arcDepth, xc, shallow, corners, offset } =
-    useMemo(() => {
-      return {
-        x0: 0.36 * width,
-        x1: 0.4 * width, // 40%
-        x2: 0.6 * width,
-        x20: 0.64 * width, // 60%
-        xc: 0.5 * width,
-        arcDepth: 0.09 * width, // 20% depth
-        shallow: 0.09 * width,
-        corners: 0.05 * width,
-        offset: 0.025 * width,
-      };
-    }, [width, height]);
+  const { x1, x2, arcDepth, xc, shallow, corners, offset } = useMemo(() => {
+    return {
+      x1: 0.4 * width, // 40%
+      x2: 0.6 * width,
+      xc: 0.5 * width,
+      arcDepth: 0.09 * width, // 20% depth
+      shallow: 0.09 * width,
+      corners: 0.05 * width,
+      offset: 0.025 * width,
+    };
+  }, [width, height]);
 
   //replace with 2 rects
   //2 off centered rect, one circle
   //and fill bottom
-
+  console.log("q", question);
   return (
     <div
       className={style.arcbox}

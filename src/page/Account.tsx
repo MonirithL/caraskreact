@@ -9,7 +9,15 @@ import {
 import AccountItemCard from "../component/AccountItemCard";
 import style from "./Account.module.css";
 import UserBlock from "../component/UserBlock";
+import { useUser } from "../context/UserContext";
+import NotSignIn from "../component/NoSignedIn";
 export default function Account() {
+  const { user } = useUser();
+
+  if (user === null) {
+    return <NotSignIn />;
+  }
+
   return (
     <div className={style.main}>
       <UserBlock />

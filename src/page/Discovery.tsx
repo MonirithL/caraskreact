@@ -2,16 +2,20 @@ import { motion } from "motion/react";
 import style from "./Discovery.module.css";
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
+import UserBlock from "../component/UserBlock";
 
 export default function Discovery() {
   const navigate = useNavigate();
 
-  function goto_basic() {}
+  function goto_basic() {
+    navigate("/qna");
+  }
 
   function goto_specific() {}
 
   return (
     <motion.div className={style.main}>
+      <UserBlock />
       <div className={style.ds_wrapper}>
         <h1>Basic Discovery</h1>
         <p>

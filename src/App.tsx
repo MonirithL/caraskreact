@@ -1,10 +1,9 @@
-import { useState } from "react";
 import "./App.css";
 import { Outlet, useLocation } from "react-router";
 import Navbar from "./component/Navbar";
 import AppbarLogo from "./component/AppbarLogo";
 
-const noAuthLayoutRoutes = ["/manage", "/qna", "/testing"];
+const noAuthLayoutRoutes = ["/manage", "/qna", "/testing", "/result"];
 export default function App() {
   const location = useLocation();
   const hideLayout = noAuthLayoutRoutes.some((route) =>
@@ -16,6 +15,7 @@ export default function App() {
   // capitalize first letter
   const capitalized =
     lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+
   return (
     <div className="base">
       <div className="header">

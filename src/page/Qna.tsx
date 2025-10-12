@@ -8,76 +8,171 @@ import type { Answer } from "../type/Answer";
 import AnswerCard from "../component/Answer";
 import ProgressBar from "../component/ProgressBar";
 import { motion } from "motion/react";
+import { useActiveQnas } from "../context/QnaContext";
+import {
+  getQuestionCompound,
+  createSession,
+  deleteSession,
+} from "../service/QnaFetch";
+import { useUser } from "../context/UserContext";
+import type { Session } from "../type/Session";
+import { useNavigate } from "react-router";
+import type { QuestionCompound } from "../type/QuestionCompound";
+import type { ActiveQna } from "../type/ActiveQna";
 
+// let startupDone = false;
 export default function Qna() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [popFinishEarly, setPopFInishEarly] = useState(false);
-
-  const [localProgress, setLocalProgress] = useState<Map<string, Answer>>(
-    new Map()
-  );
-  const [simulated_progress, setsprog] = useState(3);
-
+  const { session_id, setSession } = useUser();
   const qnaRef = useRef(null);
   const [width, setWidth] = useState(0);
   const { time, start, pause, reset } = useTimer(30);
   const totalQuestionCount = 18;
-  const [answers, setAnswers] = useState<Answer[]>([
-    { id: "1", answer: "Click me1", point: 1, type: "creative" },
-    { id: "2", answer: "Click me2", point: 1, type: "creative" },
-    { id: "3", answer: "Click me3", point: 1, type: "creative" },
-    { id: "4", answer: "Click me4", point: 1, type: "creative" },
-  ]);
+  //for components
 
-  function setAnswer(ans_id: string) {
+  const [okayCallreq, setOkayCallreq] = useState(false);
+  //all ready is to stop that spinning wheel from showing, check when user!=null: session, question compound
+  const [allReady, setAllReady] = useState(false);
+  const nav = useNavigate();
+
+  const { user, loading } = useUser();
+  const { activeQna, addQna, resetActiveQnAs } = useActiveQnas();
+
+  const [compoundqna, setCompoundQna] = useState<QuestionCompound[] | null>(
+    null
+  );
+
+  //get compound questions list (state)
+  //if user != null; create a session id (state)
+  //everytime a user answers, put into ActiveQna list(qid, qtext, aid, atext)
+  //if user !=null; also send to db; if return ok or self then ok
+  //everytime a user click answer: add answer> switch QuestionCompound> Reset timer
+  //when counter = 18 (state)
+  //if user != null; send to /make-result -> it send to db as well
+  //if guest; send to server /make-result/guest
+  //when recieved:
+  //if guest? send the result with route result/guest,
+  //if user!=null=> go to next route and get latest session /result
+
+  //remove view now
+  async function startup() {
+    reset();
+    resetActiveQnAs();
+
+    //all user and guest
+    let compoundquestion = await getQuestionCompound();
+    if (compoundquestion != null) {
+      setCompoundQna(compoundquestion);
+      console.log("qna :", JSON.stringify(compoundquestion));
+    }
+    //if users
+    if (user != null) {
+      let sess: Session | null = null;
+      if (session_id == null) {
+        sess = await createSession();
+      }
+      if (sess !== null) {
+        setSession(sess.id);
+        console.log("session ok: ", JSON.stringify(sess.id));
+      } else {
+        console.log("session id is null");
+      }
+    }
+  }
+  //end logic
+
+  function setAnswer(ans_id: string, ans_text: string) {
     //do something like storing or setting it
-    setsprog(simulated_progress + 1);
+    const activeQna1: ActiveQna = {
+      question_id: compoundqna?.[activeQna.length]?.id ?? "",
+      questionText: compoundqna?.[activeQna.length]?.questionText ?? "",
+      answer_id: ans_id,
+      answerText: ans_text,
+    };
+    console.log("active id: ", JSON.stringify(activeQna1));
+    // console.log(compoundqna?.[qCounter + 1].answers);
+    addQna(activeQna1);
+    reset();
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
-    start();
-  }, []);
+    console.log("list length", activeQna.length);
+    if (activeQna.length < 18) {
+      start();
+    }
+    if (activeQna.length === 18) {
+      const tempActiveQna = activeQna;
+      const sid = session_id;
+
+      nav("/result", { state: { tempActiveQna, sid }, replace: true });
+    }
+  }, [activeQna.length]);
+
   useEffect(() => {
-    const handleResize = (entries: ResizeObserverEntry[]) => {
-      for (let entry of entries) {
-        setWidth(entry.contentRect.width);
-        console.log(entry.contentRect.width);
-      }
-    };
+    console.log("loading ", loading);
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) setWidth(entry.contentRect.width);
+    });
 
-    const observer = new ResizeObserver(handleResize);
+    if (qnaRef.current) observer.observe(qnaRef.current);
 
-    if (qnaRef.current) {
-      observer.observe(qnaRef.current);
+    if (loading === false) {
+      setOkayCallreq(true);
+    }
+    if (allReady === true) {
+      start();
     }
 
     return () => {
       if (qnaRef.current) observer.unobserve(qnaRef.current);
     };
-  }, [isLoading]);
+  }, [loading, allReady, activeQna.length]);
+
   useEffect(() => {
-    const handleResize = (entries: ResizeObserverEntry[]) => {
-      for (let entry of entries) {
-        setWidth(entry.contentRect.width);
-        console.log(entry.contentRect.width);
-      }
-    };
+    if (okayCallreq === true) {
+      startup();
+    }
+  }, [okayCallreq]);
 
-    const observer = new ResizeObserver(handleResize);
-
-    if (qnaRef.current) {
-      observer.observe(qnaRef.current);
+  useEffect(() => {
+    let checkForUser = false;
+    if (session_id !== null) {
+      checkForUser = true;
+    }
+    let checkCompound = false;
+    if (compoundqna != null) {
+      checkCompound = true;
     }
 
-    return () => {
-      if (qnaRef.current) observer.unobserve(qnaRef.current);
-    };
-  }, []);
+    if (checkForUser && checkCompound) {
+      setAllReady(true);
+    }
+    if (user === null && checkCompound) {
+      setAllReady(true);
+    }
+  }, [session_id, compoundqna]);
 
-  if (isLoading) {
+  // useEffect(() => {
+  //   //running all ready
+  //   if (allReady === true) {
+  //     start();
+  //   }
+  // }, [allReady]);
+
+  async function exitQna() {
+    console.log("session is: ", JSON.stringify(session_id));
+    if (session_id != null) {
+      const deleted = await deleteSession(session_id);
+      if (deleted != null) {
+        console.log("deleted session: (QNA)", deleted);
+        nav("/discovery", { replace: true });
+      }
+    } else {
+      nav("/discovery", { replace: true });
+    }
+    nav("/discovery", { replace: true });
+  }
+
+  if (loading || !allReady) {
     return (
       <div
         className={style.main}
@@ -96,12 +191,15 @@ export default function Qna() {
       transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
     >
       <div className={style.qna_appbar}>
-        <button className={style.backAbs}>
+        <button className={style.backAbs} onClick={exitQna}>
           <ArrowLeft className={style.backbtn} />
         </button>
-        <ProgressBar total={totalQuestionCount} current={simulated_progress} />
+        <ProgressBar
+          total={totalQuestionCount}
+          current={Math.min(activeQna.length, totalQuestionCount)}
+        />
       </div>
-      <div>
+      <div className={style.questWrapper}>
         <div className={style.question} ref={qnaRef}>
           <div className={style.timer}>
             <div className={style.timerNumber}>
@@ -110,17 +208,32 @@ export default function Qna() {
             <ConicProgress progress={((30 - time) / 30) * 100} />
           </div>
           <div className={style.qnaBox}>
-            {width > 0 && <ConcaveRect width={width} />}
+            {width > 0 && (
+              <ConcaveRect
+                width={width}
+                question={compoundqna?.[activeQna.length]?.questionText}
+              />
+            )}
           </div>
         </div>
         <div className={style.ans_group}>
           <p>Select one of the following:</p>
-          {answers.map((ans) => (
-            <AnswerCard answer_obj={ans} to_do={setAnswer} />
-          ))}
+          {activeQna.length === 18 ? (
+            <div>
+              <h3>Completed</h3>
+            </div>
+          ) : (
+            compoundqna?.[activeQna.length]?.answers.map((ans) => (
+              <AnswerCard
+                key={ans.id + ans.qid}
+                answer_obj={ans}
+                to_do={setAnswer}
+              />
+            ))
+          )}
         </div>
       </div>
-      {popFinishEarly === false ? (
+      {/* {popFinishEarly === false ? (
         <></>
       ) : (
         <motion.div
@@ -141,7 +254,7 @@ export default function Qna() {
             </button>
           </div>
         </motion.div>
-      )}
+      )} */}
     </motion.div>
   );
 }

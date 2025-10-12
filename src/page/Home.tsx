@@ -1,21 +1,22 @@
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
+import UserBlock from "../component/UserBlock";
 import { useUser } from "../context/UserContext";
 import style from "./Home.module.css";
 export default function Home() {
   const { user } = useUser();
   console.log(user);
-  const navigate = useNavigate();
-  async function logout() {
-    const res = await fetch(`http://localhost:3000/auth/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
+  // const navigate = useNavigate();
+  // async function logout() {
+  //   const res = await fetch(`http://localhost:3000/auth/logout`, {
+  //     method: "POST",
+  //     credentials: "include",
+  //   });
 
-    if (!res.ok) {
-      throw new Error("sign out failed");
-    }
-    navigate("/", { replace: true });
-  }
+  //   if (!res.ok) {
+  //     throw new Error("sign out failed");
+  //   }
+  //   navigate("/", { replace: true });
+  // }
 
   // async function getTest() {
   //   const res = await fetch(`${API_BASE_TEST}/`, {
@@ -43,6 +44,7 @@ export default function Home() {
     // </>
     //if user not NULL then return a user tracking
     <div className={style.home}>
+      <UserBlock />
       <div className={style.item_card}>
         <h1>Discovery</h1>
         <p>Quickly self discover with out point system questionnaire</p>

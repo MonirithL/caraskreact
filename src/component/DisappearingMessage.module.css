@@ -1,0 +1,8 @@
+.dm{
+    position: absolute;
+    bottom: 3rem;
+    color:var(--black-hint);
+    background-color: rgba(var(--black-hint-num),0.2);
+    padding: 1rem 2rem;
+    border-radius: 0.4rem;
+}

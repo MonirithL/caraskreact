@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 import unsetProfile from "../assets/anon_profile.png";
 import style from "./UserBlock.module.css";
 
-export default function UserBlock() {
+interface UserBlockProps {
+  customDesc?: string | null;
+}
+
+export default function UserBlock({ customDesc = null }: UserBlockProps) {
   const { user } = useUser();
 
   if (!user) {
@@ -34,7 +37,7 @@ export default function UserBlock() {
         </div>
         <div className={style.texts}>
           <h3>{user?.name}</h3>
-          <p>{user?.email}</p>
+          <p>{customDesc == null ? user?.email : customDesc}</p>
         </div>
       </div>
     );

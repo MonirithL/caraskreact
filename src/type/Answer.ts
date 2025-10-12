@@ -1,6 +1,7 @@
 export type Answer = {
     id: string;
-    answer: string;
-    type: string;
-    point: number;
+    answerText: string;
+    category: string;
+    score: number;
+    qid:string;
 }

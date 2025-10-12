@@ -1,9 +1,9 @@
-import { StrictMode } from "react";
+
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./App.css";
 
-import { BrowserRouter, Route, Routes, Navigate } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "./page/Home.tsx";
 
 import Callback from "./auth/Callback.tsx";
@@ -22,44 +22,51 @@ import Discovery from "./page/Discovery.tsx";
 import Progress from "./page/Progress.tsx";
 import Explore from "./page/Explore.tsx";
 import AccountInfo from "./page/manage/AccountInfo.tsx";
+import NotSignIn from "./component/NoSignedIn.tsx";
+import { QnaProvider } from "./context/QnaContext.tsx";
+import Result from "./page/Result.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        {/* need layout to run check, if have a session jwt then try refresh, if refreshed then can go HOME, else stay here */}
+  // <StrictMode>
+  <BrowserRouter>
+    <Routes>
+      {/* need layout to run check, if have a session jwt then try refresh, if refreshed then can go HOME, else stay here */}
 
-        <Route element={<NoAuthLayout />}>
-          <Route path="/" element={<Landing />} />
-          <Route element={<Login />} path="/login" />
-          <Route path="/register" element={<Register />} />
-          <Route path="/auth/callback" element={<Callback />} />
-        </Route>
+      <Route element={<NoAuthLayout />}>
+        <Route path="/" element={<Landing />} />
+        <Route element={<Login />} path="/login" />
+        <Route path="/register" element={<Register />} />
+        <Route path="/auth/callback" element={<Callback />} />
+      </Route>
 
-        <Route element={<App />}>
-          <Route path="/testing" element={<Discovery />}></Route>
-        </Route>
+      <Route element={<App />}>
+        <Route path="/testing" element={<NotSignIn />}></Route>
+      </Route>
 
-        {/* SHOULD actually be like,  if user is not logged in at / then go from the / -> home*/}
-        <Route element={<UserProvider />}>
-          <Route element={<AuthLayout />}>
-            <Route element={<App />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/account" element={<Account />} />
+      {/* SHOULD actually be like,  if user is not logged in at / then go from the / -> home*/}
+      <Route element={<UserProvider />}>
+        <Route element={<AuthLayout />}>
+          <Route element={<App />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/account" element={<Account />} />
+            <Route element={<QnaProvider />}>
               <Route path="/qna" element={<Qna />} />
-              <Route path="/discovery" element={<Discovery />} />
-              <Route path="/progress" element={<Progress />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/manage">
-                <Route path="account_info" element={<AccountInfo />} />
-              </Route>
-              {/*               
-              <Route path="/result_tempo" />
-              <Route path="/result" />
-               */}
             </Route>
-            <Route path="/logout" element={<Logout />} />
-            {/* <Route path="/manage">
+
+            <Route path="/result" element={<Result/>}/>
+
+            <Route path="/discovery" element={<Discovery />} />
+            <Route path="/progress" element={<Progress />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/manage">
+              <Route path="account_info" element={<AccountInfo />} />
+            </Route>
+            {/*               
+              <Route path="/result_tempo" />
+               */}
+          </Route>
+          <Route path="/logout" element={<Logout />} />
+          {/* <Route path="/manage">
                 <Route path="/account_info" />
                 <Route path="/accounts" />
                 <Route path="/subscription" />
@@ -67,9 +74,9 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/aboutapp" />
                 <Route path="/support" />
               </Route> */}
-          </Route>
         </Route>
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>
+      </Route>
+    </Routes>
+  </BrowserRouter>
+  // </StrictMode>
 );

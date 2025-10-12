@@ -1,0 +1,79 @@
+.popcard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    backdrop-filter: blur(2px);
+}
+.orange{
+    color: var(--main-color);
+}
+.maincard{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    background-color: var(--white-bg);
+    border: 0.2rem solid var(--main-color);
+    padding: 1rem;
+    border-radius: 0.4rem;
+    box-shadow: 0.4rem 0.4rem 0.8rem var(--black-hint);
+}
+ 
+.headers{
+    display: flex;
+    justify-content: space-between;
+}
+.closeBtn{
+    border-style: none;
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.closeBtn:hover{
+    background-color: rgba(var(--black-hint-num),0.4);
+}
+.goals{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 1rem;
+}
+.goalCard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: text-decoration ease-in-out 0.3s;
+}
+.goalCard:hover>h4{
+    text-decoration: 0.2rem underline solid var(--main-color);
+}
+.confirmBox{
+    row-gap: 0.8rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.switchBtn{
+    padding: 0.4rem 0.8rem;
+    background-color: var(--main-color);
+    color:var(--white);
+    border-radius: 0.4rem;
+    border-style: none;
+}
+.btnWrapper{
+    display: flex;
+    justify-content: end;
+}
+.confirmBtn{
+    justify-self: end;
+    padding: 0.8rem 2rem;
+}

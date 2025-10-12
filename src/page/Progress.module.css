@@ -1,5 +1,5 @@
 .main{
-    position: relative;
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -15,14 +15,28 @@
     justify-content: space-between;
     align-items: center;
 }
-.leadText>button{
+.btnactionGroup{
+    display: flex;
+    column-gap: 0.8rem;
+}
+
+.btnaction{
     border-style: none;
     background-color: transparent;
     padding: 0.5rem;
     border-radius: 4rem;
+    width: 2rem;
+    height: 2rem;
 
 }
-.leadText>button:hover{
+.itemaction{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btnaction:hover{
     border-radius: 4rem;
     background-color: rgba(var(--black-hint-num), 0.2);
 }
@@ -37,4 +51,29 @@
     display: flex;
     flex-direction: column;
     row-gap: 1.2rem;
+}
+.dm{
+    position: absolute;
+    bottom: 3rem;
+    color:var(--black-hint);
+    background-color: rgba(var(--black-hint-num),0.2);
+    padding: 1rem 2rem;
+    border-radius: 0.4rem;
+}
+.progprofile{
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.switch{
+    position: absolute;
+    right: 2rem;
+}
+.loadingProgressItems{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

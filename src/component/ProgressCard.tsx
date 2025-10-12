@@ -1,16 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./ProgressCard.module.css";
 import { motion } from "motion/react";
 import { Trash } from "lucide-react";
+import type { Progress } from "../type/Progress";
 
 interface ProgressCardProps {
   edit: boolean;
-  remove: (card_id: string) => void;
+  remove: (pid: number) => Promise<Progress | null>;
+  update: (pid: number, completed: boolean) => Promise<Progress | null>;
+  progress: Progress;
+  refresh: () => void;
 }
-export default function ProgressCard({ edit, remove }: ProgressCardProps) {
+export default function ProgressCard({
+  edit,
+  remove,
+  progress,
+  refresh,
+  update,
+}: ProgressCardProps) {
   const [prog, setProg] = useState(0);
-  function complete() {
+  async function complete() {
+    //change to update id then refresh
     setProg(1);
+    const prognew = await update(progress.id, 1 ? true : false);
+    if (prognew != null) {
+      refresh();
+    }
+  }
+  useEffect(() => {
+    setProg(progress.completed ? 1 : 0);
+  }, []);
+  async function removeInner() {
+    const deleteProg = await remove(progress.id);
+    if (deleteProg != null) {
+      refresh();
+    }
   }
   return (
     <div className={style.card}>
@@ -23,12 +47,12 @@ export default function ProgressCard({ edit, remove }: ProgressCardProps) {
       ></div>
       <div className={style.content}>
         <div className={style.text}>
-          <h5>Learn English</h5>
+          <h5>{progress.text}</h5>
         </div>
         {edit ? (
           <motion.button
             className={style.action}
-            onClick={() => remove("testing")}
+            onClick={removeInner}
             whileTap={{
               scale: 0.9,
               transition: {
@@ -41,7 +65,7 @@ export default function ProgressCard({ edit, remove }: ProgressCardProps) {
             whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
           >
             <Trash style={{ height: "var(--p)", width: "var(--p)" }} />
-            <h5>{prog !== 1 ? "Remove" : "Removed"}</h5>
+            <h5>Remove</h5>
           </motion.button>
         ) : (
           <motion.button

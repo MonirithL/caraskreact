@@ -5,6 +5,7 @@ export default function AuthLayout() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   async function checkAuth() {
+
     setLoading(true);
     try {
       const res = await fetch(`${API_BASE_AUTH}/check`, {
