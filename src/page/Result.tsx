@@ -50,6 +50,7 @@ export default function Result() {
           setResult_id(result.id);
           setWait(false);
           console.log("SETTED result and SETTED wait");
+          console.log(JSON.stringify(result));
         }
       };
       callResult();
@@ -79,7 +80,7 @@ export default function Result() {
       <h1 className={style.title}>Result:&nbsp;</h1>
       {/* <p className={style.footer}>Session ID: {sid ?? "Guest"}</p> */}
       <div className={style.results}>
-        {result?.result_json.result
+        {result?.result_json?.result
           .filter((career) => career.fit === true)
           .map((career, index) => (
             <ResultCard

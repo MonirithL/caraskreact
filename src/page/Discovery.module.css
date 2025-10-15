@@ -12,11 +12,12 @@
 .ds_wrapper{
     width: 100%;
     padding: 1.5rem 1rem;
-    background-color: rgba(var(--main-color-num),0.5);
+    background-color: rgba(var(--main-color-num),0.9);
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     row-gap: 0.5rem;
+    color: var(--white);
 }
 .button_wrapper{
     display: flex;

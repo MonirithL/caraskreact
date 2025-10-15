@@ -67,7 +67,7 @@ export default function ProgressCard({
             <Trash style={{ height: "var(--p)", width: "var(--p)" }} />
             <h5>Remove</h5>
           </motion.button>
-        ) : (
+        ) : prog !== 1 ? (
           <motion.button
             className={style.action}
             onClick={complete}
@@ -82,8 +82,10 @@ export default function ProgressCard({
             }}
             whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
           >
-            {prog !== 1 ? "Complete" : "Completed"}
+            Complete
           </motion.button>
+        ) : (
+          <motion.button className={style.action}>Completed</motion.button>
         )}
       </div>
     </div>

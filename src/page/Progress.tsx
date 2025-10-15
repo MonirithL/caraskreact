@@ -33,6 +33,7 @@ export default function Progress() {
   const [edit, setEdit] = useState(false);
   const [adding, setAdding] = useState(false);
   const [isChangingGoal, setICG] = useState(false);
+  const [isSettingUp, setIsSettingUp] = useState(false);
 
   //active data
 
@@ -61,6 +62,7 @@ export default function Progress() {
     if (goal != null) {
       setGoal(goal);
     } else {
+      console.log("no goal");
     }
     if (session != null) {
       const result = await getResult(session.id);
@@ -116,10 +118,19 @@ export default function Progress() {
     if (sid == "guest") {
       setNUW(true);
     }
-    if (user != null) {
+    if (user !== null && !isSettingUp) {
+      setIsSettingUp(true);
       setUpUser();
     }
-  }, []);
+    console.log("RUN MOUNT!!!!!!!!!!");
+    console.log(sid);
+  }, [user, sid]);
+
+  useEffect(() => {
+    if (isSettingUp && defaultCareers.length !== 0) {
+      setIsSettingUp(false);
+    }
+  }, [defaultCareers]);
 
   if (user === null) {
     return (
@@ -164,14 +175,25 @@ export default function Progress() {
       )}
       <div className={style.progprofile}>
         <UserBlock customDesc={`Goal: ${goal?.career ?? "Not set"}!`} />
-        <button
+        <motion.button
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          whileTap={{
+            scale: 0.9,
+            transition: {
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+              duration: 0.2,
+            },
+          }}
+          whileHover={{ scale: 1.02, transition: { duration: 0.1 } }}
           className={style.switch}
           onClick={() => {
             setICG(true);
           }}
         >
           Change goal
-        </button>
+        </motion.button>
       </div>
       <div className={`w-full ${style.leadText}`}>
         <h3>Items Currently working on</h3>

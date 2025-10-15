@@ -25,8 +25,8 @@ export default function AddProgress({
   }, [alreadyFull]);
 
   return (
-    <div className={style.popUp}>
-      <div className={style.addProgCard}>
+    <div className={style.popUp} onClick={close}>
+      <div className={style.addProgCard} onClick={(e) => e.stopPropagation()}>
         <div className={style.header}>
           <h3>Add new Progress item!</h3>
           <button className={style.closeBtn} onClick={close}>
@@ -50,7 +50,13 @@ export default function AddProgress({
             ? recommended
                 .filter((rec) => !already.includes(rec))
                 .map((rec, index) => (
-                  <div key={`${rec}-${index}`} className={style.recItems}>
+                  <div
+                    key={`${rec}-${index}`}
+                    className={style.recItems}
+                    onClick={() => {
+                      setInput(rec);
+                    }}
+                  >
                     <p>{rec}</p>
                   </div>
                 ))
@@ -59,9 +65,9 @@ export default function AddProgress({
         {input.length === 0 ? (
           <></>
         ) : (
-          <div className="w-full">
+          <div className={`w-full ${style.finishBox}`}>
             <button className={style.finish} onClick={() => add(input.trim())}>
-              Start Tracking!
+              <h4>Start Tracking!</h4>
             </button>
           </div>
         )}

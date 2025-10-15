@@ -3,6 +3,10 @@ import style from "./Discovery.module.css";
 import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
 import UserBlock from "../component/UserBlock";
+import { useEffect, useState } from "react";
+import type { Session } from "../type/Session";
+import { getCompletedSession } from "../service/HistoryFetch";
+import HistoryCard from "../component/HistoryCard";
 
 export default function Discovery() {
   const navigate = useNavigate();
@@ -11,28 +15,59 @@ export default function Discovery() {
     navigate("/qna");
   }
 
-  function goto_specific() {}
+  const [history, setHistory] = useState<Session[] | null>(null);
+
+  async function getData() {
+    const data = await getCompletedSession();
+    if (data != null) {
+      setHistory(data);
+    }
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+
+  
 
   return (
     <motion.div className={style.main}>
       <UserBlock />
-      <div className={style.ds_wrapper}>
+      <motion.div
+        className={style.ds_wrapper}
+        whileHover={{ scale: 1.02, transition: { duration: 0.1 } }}
+      >
         <h1>Basic Discovery</h1>
         <p>
           Discovery your career path! <br />
           You will go through a quick qna for a great experience.
         </p>
         <div className={style.button_wrapper}>
-          <button onClick={goto_basic}>
+          <motion.button
+            onClick={goto_basic}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            whileTap={{
+              scale: 0.9,
+              transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+                duration: 0.2,
+              },
+            }}
+            whileHover={{ scale: 1.02, transition: { duration: 0.1 } }}
+          >
             <h6>START</h6>
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
       <div className={style.other_wrp}>
-        <h4>Others</h4>
+        <h4>History</h4>
       </div>
       <div className={style.items_wrp}>
-        <motion.button className={style.item} onClick={goto_specific}>
+        {history?.map((hist) => (
+          <HistoryCard key={`${hist.id}${hist.created_at}`} session={hist} />
+        ))}
+        {/* <motion.button className={style.item} onClick={goto_specific}>
           <div className={style.item_text}>
             <h2>Specific Discovery</h2>
             <h5>Find if you are geared toward a career!</h5>
@@ -46,7 +81,7 @@ export default function Discovery() {
               />
             </div>
           </div>
-        </motion.button>
+        </motion.button> */}
       </div>
     </motion.div>
   );

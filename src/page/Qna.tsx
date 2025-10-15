@@ -13,6 +13,7 @@ import {
   getQuestionCompound,
   createSession,
   deleteSession,
+  addUserQNA
 } from "../service/QnaFetch";
 import { useUser } from "../context/UserContext";
 import type { Session } from "../type/Session";
@@ -52,7 +53,18 @@ export default function Qna() {
   //when recieved:
   //if guest? send the result with route result/guest,
   //if user!=null=> go to next route and get latest session /result
+  async function submitAllQnAs(session_id: string) {
+  for (const qna of activeQna) {
+    try {
+      const res = await addUserQNA(qna.question_id, qna.answer_id, session_id);
+      console.log(`✅ Sent QnA for ${qna.questionText}`, res);
+    } catch (err) {
+      console.error(`❌ Failed to send QnA for ${qna.question_id}`, err);
+    }
+  }
 
+  console.log("🎯 All QNAs processed");
+}
   //remove view now
   async function startup() {
     reset();
@@ -102,7 +114,10 @@ export default function Qna() {
     if (activeQna.length === 18) {
       const tempActiveQna = activeQna;
       const sid = session_id;
-
+      //ADD QNA!
+      if(sid!=null){
+        submitAllQnAs(sid);
+      }
       nav("/result", { state: { tempActiveQna, sid }, replace: true });
     }
   }, [activeQna.length]);

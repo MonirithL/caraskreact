@@ -3,7 +3,14 @@ import { Outlet, useLocation } from "react-router";
 import Navbar from "./component/Navbar";
 import AppbarLogo from "./component/AppbarLogo";
 
-const noAuthLayoutRoutes = ["/manage", "/qna", "/testing", "/result"];
+const noAuthLayoutRoutes = [
+  "/manage",
+  "/qna",
+  "/testing",
+  "/result",
+  "/history",
+  "/seemore",
+];
 export default function App() {
   const location = useLocation();
   const hideLayout = noAuthLayoutRoutes.some((route) =>

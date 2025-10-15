@@ -1,4 +1,3 @@
-
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./App.css";
@@ -25,6 +24,8 @@ import AccountInfo from "./page/manage/AccountInfo.tsx";
 import NotSignIn from "./component/NoSignedIn.tsx";
 import { QnaProvider } from "./context/QnaContext.tsx";
 import Result from "./page/Result.tsx";
+import History from "./page/History.tsx";
+import SeemoreExplore from "./page/Seemore.tsx";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
@@ -53,11 +54,13 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/qna" element={<Qna />} />
             </Route>
 
-            <Route path="/result" element={<Result/>}/>
+            <Route path="/result" element={<Result />} />
 
             <Route path="/discovery" element={<Discovery />} />
             <Route path="/progress" element={<Progress />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/seemore" element={<SeemoreExplore />} />
             <Route path="/manage">
               <Route path="account_info" element={<AccountInfo />} />
             </Route>

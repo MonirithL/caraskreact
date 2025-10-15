@@ -69,6 +69,11 @@
 .switch{
     position: absolute;
     right: 2rem;
+    padding: 0.4rem 0.8rem;
+    background-color: var(--main-color);
+    color: var(--white);
+    border-style: none;
+    border-radius: 0.4rem;
 }
 .loadingProgressItems{
     width: 100%;

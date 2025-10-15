@@ -34,12 +34,12 @@ export default function Account() {
           Menu_icon={CreditCard}
           menu_route="/manage/accounts"
         />
-        <AccountItemCard
+        {/* <AccountItemCard
           menu_name="Two-Factor Authenication"
           menu_sub="Secure your account"
           Menu_icon={ShieldPlus}
           menu_route="/manage/accounts"
-        />
+        /> */}
         <AccountItemCard
           menu_name="Log out"
           menu_sub="Exit your account"

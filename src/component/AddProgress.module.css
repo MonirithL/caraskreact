@@ -11,6 +11,7 @@
     backdrop-filter: blur(2px);
 }
 .addProgCard{
+    z-index: 2;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -24,6 +25,8 @@
 .header{
     display: flex;
     justify-content: space-between;
+    color: var(--main-color);
+    padding-bottom: 1rem;
 }
 .closeBtn{
     border-style: none;
@@ -38,9 +41,41 @@
 .closeBtn:hover{
     background-color: rgba(var(--black-hint-num),0.4);
 }
+.finishBox{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
 .finish{
+    background-color: var(--main-color);
     row-gap: 0.8rem;
     padding: 1rem;
     display: flex;
     justify-content: end;
+    border-style: none;
+    border-radius: 0.4rem;
+}
+.finish>*{
+    color: var(--white);
+}
+.input{
+    width: 100%;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    border: solid 0.1rem var(--black-hint)
+}
+.recoms{
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+.recoms>h4{
+    padding-bottom: 0.8rem;
+}
+.recItems{
+    padding: 0.8rem 0.4rem;
+    cursor: pointer;
+    transition: background-color ease-in-out 0.3s;
+}
+.recItems:hover{
+    background-color: rgba(var(--black-hint-num),0.1);
 }
