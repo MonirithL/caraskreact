@@ -68,6 +68,9 @@
     color:var(--white);
     border-radius: 0.4rem;
     border-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .btnWrapper{
     display: flex;

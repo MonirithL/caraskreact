@@ -6,17 +6,62 @@ import { useNavigate } from "react-router";
 import { supabase } from "../service/SupabaseClient";
 import { API_BASE_AUTH, CLIENT_BASE_AUTH } from "../service/APIBaseUrl";
 import AppbarLogo from "../component/AppbarLogo";
+import { useToast } from "../context/ToastContext";
 export default function Register() {
+  const { showToast } = useToast();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [conPassword, setConPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
 
   //setup for func
   const navigate = useNavigate();
 
   const API_BASE = API_BASE_AUTH;
-
+  function validate() {
+    if (email.trim().length === 0) {
+      showToast("Please Enter an Email Address!");
+      return false;
+    }
+    if (!email.trim().endsWith("@gmail.com")) {
+      showToast("Invalid Email Address!");
+      return false;
+    }
+    if (password.length === 0) {
+      showToast("Please Enter a Password!");
+      return false;
+    }
+    if (password.length > 30) {
+      showToast("Password too long");
+      return false;
+    }
+    if (password.length > 0 && password.length < 6) {
+      showToast("Password must be at least 6 characters!");
+      return false;
+    }
+    if (!/[a-z]/.test(password.trim())) {
+      showToast("Password must contain at least one letter!");
+      return false;
+    }
+    if (!/[A-Z]/.test(password.trim())) {
+      showToast("Password must contain at least one Capital letter!");
+      return false;
+    }
+    if (!/\d/.test(password.trim())) {
+      showToast("Password must contain at least one number!");
+      return false;
+    }
+    if (password.trim() !== conPassword.trim()) {
+      showToast("Both Passwords must be the same!");
+      setConPassword("");
+      return false;
+    }
+    return true;
+  }
   async function register() {
+    if (!validate()) {
+      return;
+    }
     const res = await fetch(`${API_BASE}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,10 +70,11 @@ export default function Register() {
     });
 
     if (!res.ok) {
-      throw new Error("Register failed");
+      showToast("Register Failed");
+    } else {
+      navigate("/home", { replace: true });
     }
     //res is okay, sign user in
-    navigate("/home", { replace: true });
   }
   async function loginWithGoogle() {
     await supabase.auth.signInWithOAuth({
@@ -74,7 +120,7 @@ export default function Register() {
           }
         />
         <input
-          type="password"
+          type={`${showPassword ? "text" : "password"}`}
           value={password}
           placeholder="Password"
           className={style.inputs}
@@ -83,7 +129,7 @@ export default function Register() {
           }
         />
         <input
-          type="password"
+          type={`${showPassword ? "text" : "password"}`}
           value={conPassword}
           placeholder="Confirm Password"
           className={style.inputs}
@@ -91,6 +137,15 @@ export default function Register() {
             setConPassword(e.target.value)
           }
         />
+        <div className={style.showpwdbox}>
+          <input
+            type="checkbox"
+            id="showpwd"
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+          <label htmlFor="showpwd">Show Password</label>
+        </div>
         <p className={style.signinTos}>
           By selecting Create Account below, I agree to the Terms of Services of
           Condition and Privacy Policy.

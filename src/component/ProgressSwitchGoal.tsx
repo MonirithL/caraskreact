@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import style from "./ProgressSwitchGoal.module.css";
 import { useState } from "react";
+import { motion } from "motion/react";
 
 interface PorgressSwitchGoalProps {
   close: () => void;
@@ -39,14 +40,29 @@ export default function ProgressSwitchGoal({
                 key={`${index}000${index} ${goal}`}
               >
                 <h4>{goal}</h4>
-                <button
+                <motion.button
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  whileTap={{
+                    scale: 0.9,
+                    transition: {
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 20,
+                      duration: 0.2,
+                    },
+                  }}
+                  whileHover={{
+                    scaleX: 1.05,
+                    scaleY: 1.03,
+                    transition: { duration: 0.1 },
+                  }}
                   className={style.switchBtn}
                   onClick={() => {
                     selectTheText(goal);
                   }}
                 >
                   <h4>Select</h4>
-                </button>
+                </motion.button>
               </div>
             ))}
         </div>
@@ -55,14 +71,25 @@ export default function ProgressSwitchGoal({
             <h3 className={style.orange}>Changing from:</h3>
             <h4>{`${current} -> ${selectText}`}</h4>
             <div className={style.btnWrapper}>
-              <button
+              <motion.button
                 className={`${style.switchBtn} ${style.confirmBtn}`}
                 onClick={() => {
                   setGoal(selectText);
                 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                whileTap={{
+                  scale: 0.9,
+                  transition: {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                    duration: 0.2,
+                  },
+                }}
+                whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
               >
                 Confirm
-              </button>
+              </motion.button>
             </div>
           </div>
         ) : (

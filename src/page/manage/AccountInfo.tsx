@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import style from "./AccountInfo.module.css";
 import unsetProfile from "../../assets/anon_profile.png";
-import { ChevronLeft, LucideEdit2, Pen } from "lucide-react";
+import { ChevronLeft, Pen } from "lucide-react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { API_BASE } from "../../service/APIBaseUrl";

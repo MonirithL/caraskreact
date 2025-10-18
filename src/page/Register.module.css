@@ -131,3 +131,11 @@ justify-content: start;
     font-weight: 200;
     font-size: 0.8rem;
 }
+.showpwdbox{
+    display: flex;
+    padding: 0.8rem 0rem;
+    align-items: center;
+    justify-content: end;
+    column-gap: 0.8rem;
+    color: var(--black-hint);
+}

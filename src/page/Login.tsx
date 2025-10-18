@@ -7,7 +7,9 @@ import { useNavigate } from "react-router";
 import { supabase } from "../service/SupabaseClient";
 import { API_BASE_AUTH, CLIENT_BASE_AUTH } from "../service/APIBaseUrl";
 import AppbarLogo from "../component/AppbarLogo";
+import { useToast } from "../context/ToastContext";
 export default function Login() {
+  const { showToast } = useToast();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -25,9 +27,12 @@ export default function Login() {
     });
 
     if (!res.ok) {
-      throw new Error("Login failed");
+      console.log("Called toast");
+      setPassword("");
+      showToast("Login failed");
+    } else {
+      navigate("/home", { replace: true });
     }
-    navigate("/home", { replace: true });
   }
   async function loginWithGoogle() {
     await supabase.auth.signInWithOAuth({

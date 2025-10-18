@@ -15,6 +15,17 @@ export default function AnswerCard({ answer_obj, to_do }: AnswerProp) {
         to_do(answer_obj.id, answer_obj.answerText);
       }}
       className={style.answer}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileTap={{
+        scale: 0.9,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          duration: 0.2,
+        },
+      }}
+      whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
     >
       <p>{answer_obj.answerText}</p>
     </motion.button>

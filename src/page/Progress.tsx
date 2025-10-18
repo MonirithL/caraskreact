@@ -6,7 +6,7 @@ import { useUser } from "../context/UserContext";
 import NotSignIn from "../component/NoSignedIn";
 import { useLocation } from "react-router";
 import DisappearingMessage from "../component/DisappearinMessage";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   getLatestSession,
   getGoal,
@@ -22,7 +22,6 @@ import {
 import type { Session } from "../type/Session";
 import UserBlock from "../component/UserBlock";
 import type { Goal } from "../type/Goal";
-import { g, title } from "motion/react-client";
 import ProgressSwitchGoal from "../component/ProgressSwitchGoal";
 import type { Progress } from "../type/Progress";
 import AddProgress from "../component/AddProgress";
@@ -34,6 +33,7 @@ export default function Progress() {
   const [adding, setAdding] = useState(false);
   const [isChangingGoal, setICG] = useState(false);
   const [isSettingUp, setIsSettingUp] = useState(false);
+  const [isCallingRecom, setIsCallingRecom] = useState(false);
 
   //active data
 
@@ -81,6 +81,13 @@ export default function Progress() {
     //call get recommended
     if (goal?.career !== undefined) {
       const recs = await getRecommended(goal?.career, getprogs);
+      setdbrecommended(recs);
+    }
+  }
+
+  async function getDbRecRefresh() {
+    if (goal?.career !== undefined && dbProgresses != null) {
+      const recs = await getRecommended(goal?.career, dbProgresses);
       setdbrecommended(recs);
     }
   }
@@ -169,6 +176,8 @@ export default function Progress() {
           add={addingProgress}
           alreadyFull={dbProgresses}
           recommended={dbrecommended}
+          goal={goal?.career}
+          refresh={getDbRecRefresh}
         />
       ) : (
         <></>

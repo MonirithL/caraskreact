@@ -44,13 +44,40 @@ export default function Result() {
       const callResult = async () => {
         const fsid = sid ?? null;
         const result: ResultTs | null = await createResult(tempActiveQna, fsid);
-        if (result !== null && result !== undefined) {
-          console.log("Fetched result:", result);
+        // if (result !== null && result !== undefined) {
+        //   console.log("Fetched result:", result);
+        //   setResult(result);
+        //   setResult_id(result.id);
+        //   setWait(false);
+        //   console.log("SETTED result and SETTED wait");
+        //   console.log(JSON.stringify(result));
+        // }
+        if (result) {
+          // detect incomplete/unstable result (adjust conditions as needed)
+          const isUnstable =
+            !result.id ||
+            !result.result_json || // or whatever key is missing on first call
+            (Array.isArray(result.result_json) &&
+              result.result_json.length === 0);
+
+          if (isUnstable && sid != null) {
+            console.warn("Result incomplete — retrying once...");
+            const stable = await createResult(tempActiveQna, sid);
+            if (stable) {
+              console.log("Fetched stable result:", stable);
+              setResult(stable);
+              setResult_id(stable.id);
+              setWait(false);
+              setRan(true);
+              return;
+            }
+          }
+
+          // normal success path
           setResult(result);
           setResult_id(result.id);
           setWait(false);
-          console.log("SETTED result and SETTED wait");
-          console.log(JSON.stringify(result));
+          setRan(true);
         }
       };
       callResult();

@@ -26,6 +26,7 @@ import { QnaProvider } from "./context/QnaContext.tsx";
 import Result from "./page/Result.tsx";
 import History from "./page/History.tsx";
 import SeemoreExplore from "./page/Seemore.tsx";
+import { ToastProvider } from "./context/ToastContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
@@ -35,8 +36,12 @@ createRoot(document.getElementById("root")!).render(
 
       <Route element={<NoAuthLayout />}>
         <Route path="/" element={<Landing />} />
-        <Route element={<Login />} path="/login" />
-        <Route path="/register" element={<Register />} />
+
+        <Route element={<ToastProvider />}>
+          <Route element={<Login />} path="/login" />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
         <Route path="/auth/callback" element={<Callback />} />
       </Route>
 
