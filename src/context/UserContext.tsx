@@ -7,6 +7,9 @@ export interface User {
   name: string;
   email: string;
   profile_img: string | null;
+  paidPersonal: boolean;
+  paidGroup: boolean;
+  paidFor:string | null;
 }
 //Add tier payment
 
@@ -71,6 +74,9 @@ export const UserProvider = () => {
             profile_img: data.user.profile_img,
             name: data.user.name,
             email: data.user.email,
+            paidPersonal: data.paidPersonal,
+            paidGroup: data.paidGroup,
+            paidFor: data.paidFor,
           };
 
           setUserState(user_data);
