@@ -1,43 +1,19 @@
-import { useState } from "react";
+
 
 import sty from "./Landing.module.css";
 import landing from "../assets/landing.png";
 import { useNavigate } from "react-router";
-import { supabase } from "../service/SupabaseClient";
+
 import { motion } from "motion/react";
 import { API_BASE_AUTH } from "../service/APIBaseUrl";
 import AppbarLogo from "../component/AppbarLogo";
 
 function Landing() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const API_BASE = API_BASE_AUTH; // your express server
-  // Login with email + password
-  async function loginWithPassword() {
-    const res = await fetch(`${API_BASE}/login/password`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    });
-
-    if (!res.ok) {
-      throw new Error("Login failed");
-    }
-    navigate("/home", { replace: true });
-  }
-
-  // Start Google OAuth login
-  async function loginWithGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "http://localhost:5173/auth/callback",
-      },
-    });
-  }
+  const API_BASE = API_BASE_AUTH; // express server
+  
   async function loginAsGuest() {
     const res = await fetch(`${API_BASE}/guest`, {
       method: "GET",
@@ -50,20 +26,6 @@ function Landing() {
     navigate("/home", { replace: true });
   }
 
-  // Register new account
-  async function register() {
-    const res = await fetch(`${API_BASE}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    });
-
-    if (!res.ok) {
-      throw new Error("Register failed");
-    }
-    return res.json();
-  }
 
   async function action_guest() {
     await loginAsGuest();
@@ -72,26 +34,7 @@ function Landing() {
     navigate("/login", { replace: true });
   }
   return (
-    // <>
-    //   <div>Email:&nbsp;</div>
-    //   <input
-    //     type="text"
-    //     value={email}
-    //     onChange={(e) => setEmail(e.target.value.trim())}
-    //   />
-    //   <div>Password:&nbsp;</div>
-    //   <input
-    //     type="text"
-    //     value={password}
-    //     onChange={(e) => setPassword(e.target.value.trim())}
-    //   />
-    //   <div>
-    //     <button onClick={register}>Register</button>
-    //     <button onClick={loginWithPassword}>Login</button>
-    //     <button onClick={loginWithGoogle}>Login with google</button>
-    //     <button onClick={loginAsGuest}>Login as guest</button>
-    //   </div>
-    // </>
+    
     <div className={sty.main}>
       <div className={sty.decor}>
         <div className={sty.circles}></div>

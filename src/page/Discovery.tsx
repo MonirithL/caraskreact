@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
 import style from "./Discovery.module.css";
-import { ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router";
 import UserBlock from "../component/UserBlock";
 import { useEffect, useState } from "react";

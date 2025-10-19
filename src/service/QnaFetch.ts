@@ -4,7 +4,7 @@ import type { ActiveQna, ActiveQnaText } from "../type/ActiveQna";
 import type { QnA } from "../type/QnA";
 import type { QuestionCompound } from "../type/QuestionCompound";
 import type { ResultTs } from "../type/Result";
-import type { ResultJson } from "../type/ResultJson";
+// import type { ResultJson } from "../type/ResultJson";
 import type { Session } from "../type/Session";
 import { API_BASE } from "./APIBaseUrl";
 
@@ -128,16 +128,16 @@ async function deleteSession(sid:string){
     }
 }
 
-async function completeSession(session_id:string){
-    try{
-        const res = await fetch(`${API_BASE}/session/complete`,{
+// async function completeSession(session_id:string){
+//     try{
+//         const res = await fetch(`${API_BASE}/session/complete`,{
             
-        })
-    }catch(error){
-        console.error("failed to complete session: ", error)
-        return null;
-    }
-}
+//         })
+//     }catch(error){
+//         console.error("failed to complete session: ", error)
+//         return null;
+//     }
+// }
 
 //complete Session too or just added that with result json on router end
-export {getQuestionCompound, createSession, addUserQNA, createResult, deleteSession, completeSession}
+export {getQuestionCompound, createSession, addUserQNA, createResult, deleteSession}

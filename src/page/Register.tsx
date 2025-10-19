@@ -84,18 +84,18 @@ export default function Register() {
       },
     });
   }
-  async function loginAsGuest() {
-    const res = await fetch(`${API_BASE}/guest`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
+  // async function loginAsGuest() {
+  //   const res = await fetch(`${API_BASE}/guest`, {
+  //     method: "GET",
+  //     headers: { "Content-Type": "application/json" },
+  //     credentials: "include",
+  //   });
 
-    if (!res.ok) {
-      throw new Error("Login failed");
-    }
-    navigate("/home", { replace: true });
-  }
+  //   if (!res.ok) {
+  //     throw new Error("Login failed");
+  //   }
+  //   navigate("/home", { replace: true });
+  // }
 
   return (
     <div className={`main ${style.main}`}>

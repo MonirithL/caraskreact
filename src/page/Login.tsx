@@ -1,4 +1,3 @@
-import { ArrowLeft } from "lucide-react";
 import GoogleLogo from "../assets/logo_google.png";
 import style from "./Login.module.css";
 import React, { useState } from "react";
@@ -39,6 +38,7 @@ export default function Login() {
       provider: "google",
       options: {
         redirectTo: `${CLIENT_BASE_AUTH}/callback`,
+        // redirectTo: `${CLIENT_BASE_AUTH}/callback`,
       },
     });
   }

@@ -19,7 +19,7 @@ import {
   getProgresses,
   getRecommended,
 } from "../service/ProgressFetch";
-import type { Session } from "../type/Session";
+// import type { Session } from "../type/Session";
 import UserBlock from "../component/UserBlock";
 import type { Goal } from "../type/Goal";
 import ProgressSwitchGoal from "../component/ProgressSwitchGoal";
@@ -33,7 +33,7 @@ export default function Progress() {
   const [adding, setAdding] = useState(false);
   const [isChangingGoal, setICG] = useState(false);
   const [isSettingUp, setIsSettingUp] = useState(false);
-  const [isCallingRecom, setIsCallingRecom] = useState(false);
+
 
   //active data
 
@@ -41,7 +41,7 @@ export default function Progress() {
   const [showNotUserWarning, setNUW] = useState(false);
 
   //
-  const [lastSession, setLastSession] = useState<Session | null>(null);
+  // const [lastSession, setLastSession] = useState<Session | null>(null);
   const [goal, setGoal] = useState<Goal | null>(null);
   const [defaultCareers, setDefaultCareers] = useState<string[]>([]);
   const [dbProgresses, setDbProgresses] = useState<Progress[] | null>(null);
@@ -50,14 +50,14 @@ export default function Progress() {
   function toggleEdit() {
     setEdit(!edit);
   }
-  function removeTrack(card_id: string) {
-    //remove from the list or map or array
-  }
+  // function removeTrack(card_id: string) {
+  //   //remove from the list or map or array
+  // }
 
   async function setUpUser() {
     const session = await getLatestSession();
     console.log(JSON.stringify(session));
-    setLastSession(session);
+    // setLastSession(session);
     const goal: Goal | null = await getGoal();
     if (goal != null) {
       setGoal(goal);

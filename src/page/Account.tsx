@@ -4,7 +4,6 @@ import {
   CreditCard,
   Info,
   LogOut,
-  ShieldPlus,
 } from "lucide-react";
 import AccountItemCard from "../component/AccountItemCard";
 import style from "./Account.module.css";

@@ -1,4 +1,4 @@
-import { Minus, Plus } from "lucide-react";
+import {Plus } from "lucide-react";
 import style from "./ResultCard.module.css";
 
 interface ResultCardProps {

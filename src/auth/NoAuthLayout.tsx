@@ -16,9 +16,11 @@ export default function NoAuthLayout() {
         console.log("NO AUTH LAYOUT data: ", data);
         navigate("/home", { replace: true });
       }
+      
     } catch (err) {
       console.log("NoAuthLayoutErr: ", err);
       navigate("/", { replace: true });
+      
     }
   }
   useEffect(() => {

@@ -17,7 +17,7 @@ export default function Result() {
   const location = useLocation();
   const { tempActiveQna = [], sid = null } = location.state || {};
   const [result, setResult] = useState<ResultTs | null>();
-  const [result_id, setResult_id] = useState<string | null>(null);
+  // const [result_id, setResult_id] = useState<string | null>(null);
 
   useEffect(() => {
     if (!wait) return;
@@ -66,7 +66,7 @@ export default function Result() {
             if (stable) {
               console.log("Fetched stable result:", stable);
               setResult(stable);
-              setResult_id(stable.id);
+              // setResult_id(stable.id);
               setWait(false);
               setRan(true);
               return;
@@ -75,7 +75,7 @@ export default function Result() {
 
           // normal success path
           setResult(result);
-          setResult_id(result.id);
+          // setResult_id(result.id);
           setWait(false);
           setRan(true);
         }

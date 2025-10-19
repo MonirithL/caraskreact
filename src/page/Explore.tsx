@@ -50,18 +50,18 @@ const termsString = termsFromState?.terms ?? "";
     setSearchTerms(newArray);
   }
 
-  async function getExploreResult() {
-    const exploreResult = await getExploreResultGEMINI(searchTerms);
-    if (exploreResult !== null) {
-      if (exploreResult.careers != null) {
-        setResultCareers(exploreResult.careers);
-      }
-      if (exploreResult.prompter != null) {
-        setPrompter(exploreResult.prompter);
-      }
-    }
-    setTimeout(() => setResultLoading(false), 400);
-  }
+  // async function getExploreResult() {
+  //   const exploreResult = await getExploreResultGEMINI(searchTerms);
+  //   if (exploreResult !== null) {
+  //     if (exploreResult.careers != null) {
+  //       setResultCareers(exploreResult.careers);
+  //     }
+  //     if (exploreResult.prompter != null) {
+  //       setPrompter(exploreResult.prompter);
+  //     }
+  //   }
+  //   setTimeout(() => setResultLoading(false), 400);
+  // }
 
   useEffect(() => {
     //call function to get resultCareers, and prompter
@@ -224,7 +224,7 @@ const termsString = termsFromState?.terms ?? "";
         <div className={style.result_wrapper}>
           <h5>Results:</h5>
           <div className={style.results}>
-            {resultCareers.map((rc, i) => (
+            {resultCareers?.map((rc, i) => (
               <button key={i} className={style.result}>
                 <div className={style.left}>
                   <h5>{rc.title}</h5>

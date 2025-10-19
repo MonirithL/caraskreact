@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getSeemore } from "../service/ExploreFetch";
 import type { Seemore } from "../type/Seemore";
 import { useLocation, useNavigate } from "react-router";

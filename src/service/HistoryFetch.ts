@@ -1,4 +1,4 @@
-import type { Explore } from "../type/Explore";
+
 import type { QnaHistory } from "../type/QnaHistory";
 import type { Session } from "../type/Session";
 import { API_BASE } from "./APIBaseUrl";

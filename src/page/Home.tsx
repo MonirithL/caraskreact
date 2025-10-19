@@ -1,11 +1,9 @@
 // import { useNavigate } from "react-router";
 import { useNavigate } from "react-router";
 import UserBlock from "../component/UserBlock";
-import { useUser } from "../context/UserContext";
 import style from "./Home.module.css";
 import { motion } from "motion/react";
 export default function Home() {
-  const { user } = useUser();
   const navigate = useNavigate();
   function goToDiscovery() {
     navigate("/discovery");

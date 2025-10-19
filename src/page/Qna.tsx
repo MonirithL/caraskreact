@@ -4,7 +4,7 @@ import ConcaveRect from "../component/ConcaveRect";
 import { useEffect, useRef, useState } from "react";
 import ConicProgress from "../component/ConicProgress";
 import { useTimer } from "../hook/useTimer";
-import type { Answer } from "../type/Answer";
+// import type { Answer } from "../type/Answer";
 import AnswerCard from "../component/Answer";
 import ProgressBar from "../component/ProgressBar";
 import { motion } from "motion/react";
@@ -26,7 +26,7 @@ export default function Qna() {
   const { session_id, setSession } = useUser();
   const qnaRef = useRef(null);
   const [width, setWidth] = useState(0);
-  const { time, start, pause, reset } = useTimer(30);
+  const { time, start, reset } = useTimer(30);
   const totalQuestionCount = 18;
   //for components
 
