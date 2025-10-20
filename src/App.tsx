@@ -2,6 +2,7 @@ import "./App.css";
 import { Outlet, useLocation } from "react-router";
 import Navbar from "./component/Navbar";
 import AppbarLogo from "./component/AppbarLogo";
+import AdBanner from "./component/AdComponent";
 
 const noAuthLayoutRoutes = [
   "/manage",
@@ -37,6 +38,9 @@ export default function App() {
         </div>
       </div>
       <div className="app">
+        <div className="topAd">
+          <AdBanner />
+        </div>
         <div className="body">
           <Outlet />
         </div>
