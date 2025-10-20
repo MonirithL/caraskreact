@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./App.css";
 
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import Home from "./page/Home.tsx";
 
 import Callback from "./auth/Callback.tsx";
@@ -83,6 +83,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/support" />
               </Route> */}
         </Route>
+        <Route path="*" element={<Navigate to={"/"} replace/>}></Route>
       </Route>
     </Routes>
   </BrowserRouter>

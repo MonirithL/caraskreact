@@ -34,7 +34,6 @@ export default function Progress() {
   const [isChangingGoal, setICG] = useState(false);
   const [isSettingUp, setIsSettingUp] = useState(false);
 
-
   //active data
 
   const { sid = null } = location.state || {};
@@ -200,6 +199,7 @@ export default function Progress() {
           onClick={() => {
             setICG(true);
           }}
+          disabled={defaultCareers.length === 0}
         >
           Change goal
         </motion.button>

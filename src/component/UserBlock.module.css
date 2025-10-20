@@ -28,8 +28,13 @@
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
-
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
     padding:0.8rem 0rem;
+}
+.texts>p{
+    max-width: 50%;
 }
 .texts>h3{
     text-overflow: ellipsis;

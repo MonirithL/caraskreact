@@ -15,6 +15,10 @@ export default function ConcaveRect({
   question = "Loading",
 }: ConcaveRectProp) {
   // memoize geometry values
+  if (img == null) {
+    img =
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F5778%2F5778542.png&f=1&nofb=1&ipt=78597a4f4aca0e0eb5701e135497ae8871ec1e7cf05139d891481c6282b75f49";
+  }
   const { x1, x2, arcDepth, xc, shallow, corners, offset } = useMemo(() => {
     return {
       x1: 0.4 * width, // 40%

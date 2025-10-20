@@ -73,7 +73,7 @@ async function addUserQNA(qid:string, aid:string, session_id:string):Promise<QnA
     }
 }
 
-async function createResult(qnaList: ActiveQna[], session_id:number):Promise<ResultTs|null>{
+async function createResult(qnaList: ActiveQna[], session_id:number, setProgressTextBase:(text:string)=>void):Promise<ResultTs|null>{
     // post /gemini/basic
 
     // post /gemini/basic/user
@@ -87,7 +87,7 @@ async function createResult(qnaList: ActiveQna[], session_id:number):Promise<Res
 
     try{
         const body: Record<string, any> = { qas: activeQnaTexts };
-  if (session_id) body.session_id = session_id; 
+        if (session_id) body.session_id = session_id; 
         const res = await fetch(url, {
             method:"POST",
             credentials:'include',
@@ -99,6 +99,7 @@ async function createResult(qnaList: ActiveQna[], session_id:number):Promise<Res
         if(!res.ok){
             throw new Error(`HTTP error! status: ${res.status}`)
         }
+        setProgressTextBase("Preparing Results")
         const result: ResultTs = await res.json();
         return result;
     }catch(error){

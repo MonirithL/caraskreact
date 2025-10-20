@@ -9,6 +9,7 @@ import { motion } from "motion/react";
 export default function Result() {
   const [wait, setWait] = useState(true);
   const [ran, setRan] = useState(false);
+  const [baseLoadText, setBaseLoadText] = useState("Loading");
   const [loadingText, setLoadingText] = useState("Loading");
   const nav = useNavigate();
   //mark session as completed
@@ -19,6 +20,10 @@ export default function Result() {
   const [result, setResult] = useState<ResultTs | null>();
   // const [result_id, setResult_id] = useState<string | null>(null);
 
+  function setBaseTextToShowProg(text: string) {
+    setBaseLoadText(text);
+  }
+
   useEffect(() => {
     if (!wait) return;
 
@@ -26,7 +31,7 @@ export default function Result() {
     let index = 0;
 
     const interval = setInterval(() => {
-      setLoadingText(`Loading${dots[index]}`);
+      setLoadingText(`${baseLoadText}${dots[index]}`);
       index = (index + 1) % dots.length;
     }, 1000);
 
@@ -43,7 +48,11 @@ export default function Result() {
       console.log("Reuslt question delivered");
       const callResult = async () => {
         const fsid = sid ?? null;
-        const result: ResultTs | null = await createResult(tempActiveQna, fsid);
+        const result: ResultTs | null = await createResult(
+          tempActiveQna,
+          fsid,
+          setBaseTextToShowProg
+        );
         // if (result !== null && result !== undefined) {
         //   console.log("Fetched result:", result);
         //   setResult(result);
@@ -62,7 +71,11 @@ export default function Result() {
 
           if (isUnstable && sid != null) {
             console.warn("Result incomplete — retrying once...");
-            const stable = await createResult(tempActiveQna, sid);
+            const stable = await createResult(
+              tempActiveQna,
+              sid,
+              setBaseTextToShowProg
+            );
             if (stable) {
               console.log("Fetched stable result:", stable);
               setResult(stable);

@@ -81,14 +81,10 @@ export default function SeemoreExplore() {
             ))}
           </div>
         </div>
-        <div
-          className={`${style.transall} ${defineClassForDiff(
-            seemore?.transitioning_diff ?? "unknown"
-          )}`}
-        >
+        <div className={`${style.transall} `}>
           {seemore?.goal !== null ? (
             <div className={`${style.transcard}`}>
-              <h3 className={style.ext}>Transtioning goal</h3>
+              <h3 className={style.ext}>If you were to change:</h3>
               <h4>
                 From "{seemore?.goal}" to "{seemore?.title}"
               </h4>
@@ -100,7 +96,16 @@ export default function SeemoreExplore() {
           seemore?.transitioning_diff != null &&
           seemore.transitioning !== null ? (
             <div className={`${style.transitioning}`}>
-              <div>Difficulty: {seemore.transitioning_diff.toUpperCase()}</div>
+              <div className={style.rowtext}>
+                <div>Changing difficulty:&nbsp;</div>
+                <div
+                  className={`${defineClassForDiff(
+                    seemore?.transitioning_diff ?? "unknown"
+                  )}`}
+                >
+                  {seemore.transitioning_diff.toUpperCase()}
+                </div>
+              </div>
               <div className={style.fit}>
                 <h3>The good side:</h3>
                 <div className={style.fitlist}>
@@ -118,7 +123,7 @@ export default function SeemoreExplore() {
                 </div>
               </div>
               <div className={style.rec}>
-                <h3>Some tasks you can do for transitioning:</h3>
+                <h3>Tasks to help with change:</h3>
                 <div className={style.reclist}>
                   {seemore.transitioning.map((tran) => (
                     <p>+&nbsp;{tran}</p>

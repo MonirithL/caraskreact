@@ -13,7 +13,7 @@ import {
   getQuestionCompound,
   createSession,
   deleteSession,
-  addUserQNA
+  addUserQNA,
 } from "../service/QnaFetch";
 import { useUser } from "../context/UserContext";
 import type { Session } from "../type/Session";
@@ -54,17 +54,22 @@ export default function Qna() {
   //if guest? send the result with route result/guest,
   //if user!=null=> go to next route and get latest session /result
   async function submitAllQnAs(session_id: string) {
-  for (const qna of activeQna) {
-    try {
-      const res = await addUserQNA(qna.question_id, qna.answer_id, session_id);
-      console.log(`✅ Sent QnA for ${qna.questionText}`, res);
-    } catch (err) {
-      console.error(`❌ Failed to send QnA for ${qna.question_id}`, err);
+    
+    for (const qna of activeQna) {
+      try {
+        const res = await addUserQNA(
+          qna.question_id,
+          qna.answer_id,
+          session_id
+        );
+        console.log(`✅ Sent QnA for ${qna.questionText}`, res);
+      } catch (err) {
+        console.error(`❌ Failed to send QnA for ${qna.question_id}`, err);
+      }
     }
-  }
 
-  console.log("🎯 All QNAs processed");
-}
+    console.log("🎯 All QNAs processed");
+  }
   //remove view now
   async function startup() {
     reset();
@@ -115,7 +120,7 @@ export default function Qna() {
       const tempActiveQna = activeQna;
       const sid = session_id;
       //ADD QNA!
-      if(sid!=null){
+      if (sid != null) {
         submitAllQnAs(sid);
       }
       nav("/result", { state: { tempActiveQna, sid }, replace: true });
@@ -227,6 +232,7 @@ export default function Qna() {
               <ConcaveRect
                 width={width}
                 question={compoundqna?.[activeQna.length]?.questionText}
+                img={compoundqna?.[activeQna.length]?.image}
               />
             )}
           </div>
