@@ -18,7 +18,6 @@ export default function Avatar({
   const handleError = () => {
     if (retryCount < maxRetries) {
       setRetryCount(retryCount + 1);
-      console.log("retry " + retryCount);
       // Add a tiny delay or change the URL to force reload
       setTimeout(() => setCurrentSrc(src + `?retry=${retryCount}`), 3000);
     } else {

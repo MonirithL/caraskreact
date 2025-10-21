@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router";
 import Navbar from "./component/Navbar";
 import AppbarLogo from "./component/AppbarLogo";
 import AdBanner from "./component/AdComponent";
+import { useUser } from "./context/UserContext";
 
 const noAuthLayoutRoutes = [
   "/manage",
@@ -13,6 +14,8 @@ const noAuthLayoutRoutes = [
   "/seemore",
 ];
 export default function App() {
+  const { user } = useUser();
+
   const location = useLocation();
   const hideLayout = noAuthLayoutRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -38,10 +41,12 @@ export default function App() {
         </div>
       </div>
       <div className="app">
-        <div className="topAd">
-          <AdBanner />
-        </div>
         <div className="body">
+          {!(user?.paidPersonal || user?.paidFor || user?.paidGroup) && (
+            <div className="topAd">
+              <AdBanner />
+            </div>
+          )}
           <Outlet />
         </div>
       </div>

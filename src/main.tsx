@@ -27,6 +27,7 @@ import Result from "./page/Result.tsx";
 import History from "./page/History.tsx";
 import SeemoreExplore from "./page/Seemore.tsx";
 import { ToastProvider } from "./context/ToastContext.tsx";
+import Subscriptions from "./page/manage/Subscriptions.tsx";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
@@ -68,6 +69,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/seemore" element={<SeemoreExplore />} />
             <Route path="/manage">
               <Route path="account_info" element={<AccountInfo />} />
+              <Route path="subscriptions" element={<Subscriptions />} />
             </Route>
             {/*               
               <Route path="/result_tempo" />

@@ -1,5 +1,3 @@
-
-
 import sty from "./Landing.module.css";
 import landing from "../assets/landing.png";
 import { useNavigate } from "react-router";
@@ -7,13 +5,13 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { API_BASE_AUTH } from "../service/APIBaseUrl";
 import AppbarLogo from "../component/AppbarLogo";
+import { useEffect } from "react";
 
 function Landing() {
-
   const navigate = useNavigate();
 
   const API_BASE = API_BASE_AUTH; // express server
-  
+
   async function loginAsGuest() {
     const res = await fetch(`${API_BASE}/guest`, {
       method: "GET",
@@ -26,15 +24,24 @@ function Landing() {
     navigate("/home", { replace: true });
   }
 
-
   async function action_guest() {
     await loginAsGuest();
   }
   async function action_start() {
     navigate("/login", { replace: true });
   }
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("userVisited");
+    if (!hasVisited) {
+      console.log("Welcome! This is your first visit.");
+
+      action_guest();
+
+      localStorage.setItem("userVisited", "true");
+    }
+  }, []);
   return (
-    
     <div className={sty.main}>
       <div className={sty.decor}>
         <div className={sty.circles}></div>

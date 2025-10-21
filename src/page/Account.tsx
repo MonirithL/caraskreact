@@ -1,10 +1,4 @@
-import {
-  Bell,
-  CircleUser,
-  CreditCard,
-  Info,
-  LogOut,
-} from "lucide-react";
+import { Bell, CircleUser, CreditCard, Info, LogOut } from "lucide-react";
 import AccountItemCard from "../component/AccountItemCard";
 import style from "./Account.module.css";
 import UserBlock from "../component/UserBlock";
@@ -31,7 +25,7 @@ export default function Account() {
           menu_name="Account Subscription Plan"
           menu_sub="Manage subscription plan"
           Menu_icon={CreditCard}
-          menu_route="/manage/accounts"
+          menu_route="/manage/subscriptions"
         />
         {/* <AccountItemCard
           menu_name="Two-Factor Authenication"

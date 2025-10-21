@@ -180,9 +180,8 @@ body{
 .topAd {
   display: flex;
   width: 100%;
-  position: absolute;
+  position: relative;
   top: 0;
-  height: 90px; /* typical ad height */
   justify-content: center; /* optional, center the ad */
   z-index: 10; /* make sure it’s above content */
 }
