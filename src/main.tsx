@@ -67,7 +67,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/explore" element={<Explore />} />
             <Route path="/history" element={<History />} />
             <Route path="/seemore" element={<SeemoreExplore />} />
-            <Route path="/manage">
+            <Route path="/manage" element={<ToastProvider />}>
               <Route path="account_info" element={<AccountInfo />} />
               <Route path="subscriptions" element={<Subscriptions />} />
             </Route>
@@ -85,7 +85,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/support" />
               </Route> */}
         </Route>
-        <Route path="*" element={<Navigate to={"/"} replace/>}></Route>
+        <Route path="*" element={<Navigate to={"/"} replace />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>

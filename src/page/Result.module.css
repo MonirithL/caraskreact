@@ -11,6 +11,7 @@
     width: 100%;
     padding: 0.8rem;
 }
+
 .showIncompatible{
     color: var(--black-hint);
     text-decoration: underline 0.2rem solid var(--black-hint);
@@ -59,4 +60,12 @@
     .finish_wrapper{
         padding-bottom: 3rem;
     }
+}
+.loadingImg{
+  max-width: 100%;    
+  max-height: 200px;  
+  width: auto;       
+  height: auto;      
+  display: block;     
+  margin: 0 auto;    
 }

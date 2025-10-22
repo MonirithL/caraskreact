@@ -10,7 +10,7 @@
 .profile{
     margin-right: auto;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
     height: 4rem;
     width: 4rem;
     clip-path: circle(50% at 50% 50%);

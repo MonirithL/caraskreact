@@ -4,7 +4,7 @@ import Navbar from "./component/Navbar";
 import AppbarLogo from "./component/AppbarLogo";
 import AdBanner from "./component/AdComponent";
 import { useUser } from "./context/UserContext";
-
+import pattern from "./assets/pat2.jpg";
 const noAuthLayoutRoutes = [
   "/manage",
   "/qna",
@@ -13,6 +13,7 @@ const noAuthLayoutRoutes = [
   "/history",
   "/seemore",
 ];
+const haveBgRoute = ["/seemore", "/result"];
 export default function App() {
   const { user } = useUser();
 
@@ -20,15 +21,36 @@ export default function App() {
   const hideLayout = noAuthLayoutRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
+  const showBgLayout = haveBgRoute.some((route) =>
+    location.pathname.startsWith(route)
+  );
   const pathSegments = location.pathname.split("/").filter(Boolean);
   const lastSegment = pathSegments[pathSegments.length - 1] || "";
-
   // capitalize first letter
   const capitalized =
     lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
-
+  console.log("User info for AdBanner condition:", {
+    paidPersonal: user?.paidPersonal,
+    paidFor: user?.paidFor,
+    paidGroup: user?.paidGroup,
+    shouldShowAd: !user?.paidPersonal && !user?.paidFor && !user?.paidGroup,
+  });
   return (
     <div className="base">
+      {showBgLayout && (user?.paidPersonal || user?.paidGroup) ? (
+        <div className="absFull">
+          <div
+            style={{
+              backgroundImage: `url(${pattern})`,
+              backgroundRepeat: "repeat",
+            }}
+            className="pattern"
+          ></div>
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div className="header">
         <div className={`appbar ${hideLayout ? "none" : ""}`}>
           <h1 className="appbar_mobile">{capitalized}</h1>
@@ -40,13 +62,13 @@ export default function App() {
           <Navbar></Navbar>
         </div>
       </div>
+      {!user?.paidPersonal && !user?.paidFor && !user?.paidGroup && (
+        <div className="topAd">
+          <AdBanner />
+        </div>
+      )}
       <div className="app">
         <div className="body">
-          {!(user?.paidPersonal || user?.paidFor || user?.paidGroup) && (
-            <div className="topAd">
-              <AdBanner />
-            </div>
-          )}
           <Outlet />
         </div>
       </div>

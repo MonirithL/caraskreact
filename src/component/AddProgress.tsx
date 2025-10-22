@@ -29,7 +29,7 @@ export default function AddProgress({
     setAlready(textarr);
   }, [alreadyFull]);
   useEffect(() => {
-    if (goal !== undefined && recommended.length === 0) {
+    if (goal !== undefined && recommended?.length === 0) {
       refresh();
     }
   }, []);
@@ -61,7 +61,7 @@ export default function AddProgress({
             <h4>Things recomended to tracks:</h4>
           )}
 
-          {goal !== undefined && recommended.length === 0 ? (
+          {goal !== undefined && recommended?.length === 0 ? (
             <div className={style.center}>
               <div className={style.spinner}></div>
               <p>Loading recommendations...</p>
@@ -83,7 +83,7 @@ export default function AddProgress({
               ))
           )}
         </div>
-        {input.length === 0 ? (
+        {input?.length === 0 ? (
           <></>
         ) : (
           <div className={`w-full ${style.finishBox}`}>

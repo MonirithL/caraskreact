@@ -25,6 +25,7 @@ import type { Goal } from "../type/Goal";
 import ProgressSwitchGoal from "../component/ProgressSwitchGoal";
 import type { Progress } from "../type/Progress";
 import AddProgress from "../component/AddProgress";
+import nothing from "../assets/cat_s.png";
 
 export default function Progress() {
   const location = useLocation();
@@ -133,7 +134,7 @@ export default function Progress() {
   }, [user, sid]);
 
   useEffect(() => {
-    if (isSettingUp && defaultCareers.length !== 0) {
+    if (isSettingUp && defaultCareers?.length !== 0) {
       setIsSettingUp(false);
     }
   }, [defaultCareers]);
@@ -199,7 +200,7 @@ export default function Progress() {
           onClick={() => {
             setICG(true);
           }}
-          disabled={defaultCareers.length === 0}
+          disabled={defaultCareers?.length === 0}
         >
           Change goal
         </motion.button>
@@ -213,12 +214,12 @@ export default function Progress() {
               setAdding(!adding);
             }}
           >
-            <div className={style.itemaction}>
+            <div className={style.itemaction} title="Add Progress">
               <Plus className={style.edit} />
             </div>
           </button>
           <button className={style.btnaction} onClick={toggleEdit}>
-            <div className={style.itemaction}>
+            <div className={style.itemaction} title="Toggle Delete">
               <Pen className={style.edit} />
             </div>
           </button>
@@ -228,9 +229,10 @@ export default function Progress() {
         <div className={style.loadingProgressItems}>
           <div className="spinner"></div>
         </div>
-      ) : dbProgresses.length === 0 ? (
+      ) : dbProgresses?.length === 0 ? (
         <div className={style.loadingProgressItems}>
-          <h4>Currently no progress tracking!</h4>
+          <img src={nothing} alt="" />
+          <h4>Add a few Tasks to see progress!</h4>
         </div>
       ) : (
         <div className={`w-full ${style.items}`}>

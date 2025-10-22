@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import type { Session } from "../type/Session";
 import { getCompletedSession } from "../service/HistoryFetch";
 import HistoryCard from "../component/HistoryCard";
+import { useUser } from "../context/UserContext";
 
 export default function Discovery() {
+  const { user } = useUser();
   const navigate = useNavigate();
 
   function goto_basic() {
@@ -25,8 +27,6 @@ export default function Discovery() {
   useEffect(() => {
     getData();
   }, []);
-
-  
 
   return (
     <motion.div className={style.main}>
@@ -60,7 +60,11 @@ export default function Discovery() {
         </div>
       </motion.div>
       <div className={style.other_wrp}>
-        <h4>History</h4>
+        {user !== null ? (
+          <h4>History</h4>
+        ) : (
+          <h5>To View History, Please sign in!</h5>
+        )}
       </div>
       <div className={style.items_wrp}>
         {history?.map((hist) => (

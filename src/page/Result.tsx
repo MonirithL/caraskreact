@@ -6,7 +6,10 @@ import type { ResultTs } from "../type/Result";
 import ResultCard from "../component/ResultCard";
 import style from "./Result.module.css";
 import { motion } from "motion/react";
+import loadingImg from "../assets/loading.gif";
+import { useUser } from "../context/UserContext";
 export default function Result() {
+  const { user } = useUser();
   const [wait, setWait] = useState(true);
   const [ran, setRan] = useState(false);
   const [baseLoadText, setBaseLoadText] = useState("Loading");
@@ -109,7 +112,11 @@ export default function Result() {
     return (
       <div className={style.wait}>
         <div className={style.wait_center}>
-          <div className="spinner"></div>
+          {user?.paidGroup || user?.paidPersonal ? (
+            <img src={loadingImg} alt="" className={style.loadingImg} />
+          ) : (
+            <div className="spinner"></div>
+          )}
           <h2>{loadingText}</h2>
         </div>
       </div>
@@ -120,11 +127,11 @@ export default function Result() {
       <h1 className={style.title}>Result:&nbsp;</h1>
       {/* <p className={style.footer}>Session ID: {sid ?? "Guest"}</p> */}
       <div className={style.results}>
-        {result?.result_json?.result
+        {(result?.result_json?.result ?? [])
           .filter((career) => career.fit === true)
           .map((career, index) => (
             <ResultCard
-              key={career.title + index + index}
+              key={career.title + index}
               fit={career.fit}
               description={career.description}
               title={career.title}
@@ -135,7 +142,7 @@ export default function Result() {
         <div className={style.showIncompatible}>
           <h3>Career paths not advised</h3>
         </div>
-        {result?.result_json.result
+        {(result?.result_json?.result ?? [])
           .filter((career) => career.fit === false)
           .map((career, index) => (
             <ResultCard

@@ -4,11 +4,14 @@ import type { Seemore } from "../type/Seemore";
 import { useLocation, useNavigate } from "react-router";
 import style from "./Seemore.module.css";
 import { ChevronLeft } from "lucide-react";
+import loadingImg from "../assets/loading.gif";
+import { useUser } from "../context/UserContext";
 interface LocationState {
   title: string; // replace with your session type
   terms: string[];
 }
 export default function SeemoreExplore() {
+  const { user } = useUser();
   const location = useLocation();
   const state = location.state as LocationState | undefined;
   const navigate = useNavigate();
@@ -48,7 +51,11 @@ export default function SeemoreExplore() {
   if (loading) {
     return (
       <div className={style.loading}>
-        <div className="spinner"></div>
+        {user?.paidGroup || user?.paidPersonal ? (
+          <img src={loadingImg} alt="" className={style.loadingImg} />
+        ) : (
+          <div className="spinner"></div>
+        )}
         <h2>Collecting Valuable details for you!</h2>
         <h3>Please wait</h3>
       </div>
@@ -76,7 +83,7 @@ export default function SeemoreExplore() {
         <div className={style.requirements}>
           <h3>{seemore?.title} requirements:</h3>
           <div className={style.reqlist}>
-            {seemore?.requirements.map((req) => (
+            {seemore?.requirements?.map((req) => (
               <p className={style.req}>-&nbsp;{req}</p>
             ))}
           </div>
@@ -125,7 +132,7 @@ export default function SeemoreExplore() {
               <div className={style.rec}>
                 <h3>Tasks to help with change:</h3>
                 <div className={style.reclist}>
-                  {seemore.transitioning.map((tran) => (
+                  {seemore.transitioning?.map((tran) => (
                     <p>+&nbsp;{tran}</p>
                   ))}
                 </div>

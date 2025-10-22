@@ -6,7 +6,9 @@ import { ChevronLeft, Pen } from "lucide-react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { API_BASE } from "../../service/APIBaseUrl";
+import { useToast } from "../../context/ToastContext";
 export default function AccountInfo() {
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const { user, setUser } = useUser();
@@ -21,16 +23,67 @@ export default function AccountInfo() {
 
     if (!file.type.startsWith("image/")) {
       setFileError("Please select a valid image file");
-
       return;
     }
+
     setFileError(null);
+    const maxSizeKB = 60;
+
+    // Preliminary check
+    if (file.size / 1024 <= maxSizeKB) {
+      const reader = new FileReader();
+      reader.onload = () => setNewImage(reader.result as string);
+      reader.readAsDataURL(file);
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
-      const result = reader.result as string;
-      setNewImage(result);
-      console.log(result);
+      const img = new Image();
+      img.src = reader.result as string;
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d")!;
+        let width = img.width;
+        let height = img.height;
+
+        // Helper function to compress by resizing
+        function compress() {
+          canvas.width = width;
+          canvas.height = height;
+          ctx.clearRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) return;
+
+              const sizeKB = blob.size / 1024;
+              console.log("Current size (KB):", sizeKB.toFixed(2));
+
+              if (sizeKB <= maxSizeKB) {
+                console.log("Final compressed size (KB):", sizeKB.toFixed(2));
+                const compressedReader = new FileReader();
+                compressedReader.onload = () =>
+                  setNewImage(compressedReader.result as string);
+                compressedReader.readAsDataURL(blob);
+              } else {
+                // reduce dimensions by 10% and retry
+                width *= 0.9;
+                height *= 0.9;
+                compress();
+              }
+            },
+            "image/jpeg",
+            0.8
+          ); // quality 0.8 but mostly irrelevant
+        }
+
+        compress();
+      };
     };
+
     reader.readAsDataURL(file);
   }
   async function calllUpdate() {
@@ -46,8 +99,10 @@ export default function AccountInfo() {
       setEdit(false);
       setDiff(false);
       setNewImage("");
+      showToast("Set new profile Successful!");
     } else {
       console.log("FAILED TO UPDATE");
+      showToast("Change Image Failed! image too large!");
     }
   }
   function toggleEdit() {

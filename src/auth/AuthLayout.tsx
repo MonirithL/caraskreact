@@ -14,7 +14,7 @@ export default function AuthLayout() {
       });
       if (res.status !== 200) {
         const data = await res.json();
-
+        console.log("AUTH LAYOUT data: ", data);
         navigate("/", { replace: true });
       }
     } catch (err) {

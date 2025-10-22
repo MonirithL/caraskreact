@@ -7,11 +7,17 @@ import { useUser } from "../context/UserContext";
 import NotSignIn from "../component/NoSignedIn";
 import type { ExploreCareer } from "../type/Explore";
 import { getExploreResultGEMINI } from "../service/ExploreFetch";
+import nothing from "../assets/cat_s.png";
+import loadingImg from "../assets/loading.gif";
 
 export default function Explore() {
+  const exploreCache = new Map<
+    string,
+    { careers: ExploreCareer[]; prompter: string }
+  >();
   const location = useLocation();
   const termsFromState = location.state as { terms?: string } | undefined;
-const termsString = termsFromState?.terms ?? "";
+  const termsString = termsFromState?.terms ?? "";
 
   const { user } = useUser();
   const navigate = useNavigate();
@@ -22,7 +28,9 @@ const termsString = termsFromState?.terms ?? "";
   const [prompter, setPrompter] = useState(
     " - try putting something about your self"
   );
-  const [searchTerms, setSearchTerms] = useState<string[]>(stringToArr(termsString));
+  const [searchTerms, setSearchTerms] = useState<string[]>(
+    stringToArr(termsString)
+  );
 
   const [resultCareers, setResultCareers] = useState<ExploreCareer[] | null>(
     null
@@ -50,29 +58,7 @@ const termsString = termsFromState?.terms ?? "";
     setSearchTerms(newArray);
   }
 
-  // async function getExploreResult() {
-  //   const exploreResult = await getExploreResultGEMINI(searchTerms);
-  //   if (exploreResult !== null) {
-  //     if (exploreResult.careers != null) {
-  //       setResultCareers(exploreResult.careers);
-  //     }
-  //     if (exploreResult.prompter != null) {
-  //       setPrompter(exploreResult.prompter);
-  //     }
-  //   }
-  //   setTimeout(() => setResultLoading(false), 400);
-  // }
-
   useEffect(() => {
-    //call function to get resultCareers, and prompter
-    // console.log("EFFECT TRIGGERED");
-    // if (searchTerms.length > 0 && !resultLoading) {
-    //   console.log("CALLED RUNNING");
-    //   setResultLoading(true);
-    //   getExploreResult();
-    // } else {
-    //   console.log("NONE CALLED");
-    // }
     if (searchTerms.length === 0) {
       // Clear results if all removed
       setResultCareers(null);
@@ -92,9 +78,9 @@ const termsString = termsFromState?.terms ?? "";
       if (exploreResult !== null) {
         if (exploreResult.careers) setResultCareers(exploreResult.careers);
         if (exploreResult.prompter) setPrompter(exploreResult.prompter);
+        setResultLoading(false);
       }
-
-      setResultLoading(false);
+      console.log("Result is null");
     }
 
     runFetch();
@@ -112,27 +98,9 @@ const termsString = termsFromState?.terms ?? "";
     setShowTerms(!showTerms);
   }
 
-  // function search() {
-  //   //send fetch with the terms and current text(remove duplicates): express send back
-  //   //put results []careers
-  // }
-  // function teleprompter() {
-  //   //prompt users to add something
-  //   //uses gemini, send the current prompters to gemini after a search and returns a suggestion
-  // }
-
-  // function removeTerm(index: number) {
-  //   //remove a term from the terms list
-  // }
   function seeMore(route: string, data: string) {
     //data can be obj type
     navigate(route, { state: { title: data, terms: searchTerms.join(",") } });
-
-    // const location = useLocation();
-    // const data = location.state as MyDataType;
-
-    // console.log(data);
-    // return <div>{data?.title}</div>;
   }
 
   if (user === null) {
@@ -152,6 +120,11 @@ const termsString = termsFromState?.terms ?? "";
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className={style.searchInput}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              addSearchTerm();
+            }
+          }}
         />
         <div>
           <motion.button
@@ -213,11 +186,16 @@ const termsString = termsFromState?.terms ?? "";
       (resultCareers === null && !resultLoading) ||
       searchTerms.length === 0 ? (
         <div className={style.unsearch}>
+          <img src={nothing} alt="" />
           <h4>Try searching something</h4>
         </div>
       ) : resultLoading ? (
         <div className={style.loading}>
-          <div className="spinner"></div>
+          {user.paidGroup || user.paidPersonal ? (
+            <img src={loadingImg} alt="" className={style.loadingImg} />
+          ) : (
+            <div className="spinner"></div>
+          )}
           <p>Getting your result at light speed!</p>
         </div>
       ) : (

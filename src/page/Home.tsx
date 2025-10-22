@@ -15,10 +15,12 @@ export default function Home() {
   return (
     <div className={style.home}>
       <UserBlock />
-      <motion.div className={style.item_card}
-      whileHover={{ scale: 1.01, transition: { duration: 0.1 } }}>
+      <motion.div
+        className={style.item_card}
+        whileHover={{ scale: 1.01, transition: { duration: 0.1 } }}
+      >
         <h1>Discovery</h1>
-        <p>Quickly self discover with out point system questionnaire</p>
+        <p>Quickly self discover with our point system questionnaire</p>
         <motion.button
           transition={{ duration: 0.5, ease: "easeOut" }}
           whileTap={{

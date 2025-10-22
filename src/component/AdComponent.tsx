@@ -1,71 +1,49 @@
-import { useEffect, useRef, useState } from "react";
-
-declare global {
-  interface Window {
-    adsbygoogle: any[];
-  }
-}
-
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ad1 from "../assets/adsbanner1.jpg";
+import ad2 from "../assets/adsbanner2.jpg";
+import ad3 from "../assets/adsbanner3.jpg";
+import ad4 from "../assets/adsbanner4.jpg";
+const ads = [ad1, ad2, ad3, ad4];
+import style from "./AdsComponent.module.css";
 export default function AdBanner() {
-  const adRef = useRef<HTMLDivElement | null>(null);
-  const [adLoaded, setAdLoaded] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(() =>
+    Math.floor(Math.random() * ads.length)
+  );
 
   useEffect(() => {
-    try {
-      // Load AdSense script only once globally
-      if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
-        const script = document.createElement("script");
-        script.async = true;
-        script.src =
-          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9705932480399585";
-        script.crossOrigin = "anonymous";
-        document.head.appendChild(script);
-      }
-
-      // Try to render ad
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense error:", e);
-    }
-
-    // Observe ad container to detect if ad loads
-    const el = adRef.current;
-    if (!el) return;
-
-    const observer = new MutationObserver(() => {
-      // AdSense injects iframe if the ad successfully loads
-      if (el.querySelector("iframe")) {
-        setAdLoaded(true);
-        observer.disconnect();
-      }
-    });
-
-    observer.observe(el, { childList: true, subtree: true });
-
-    // Safety timeout: if ad doesn’t load within 5 seconds → collapse
-    const timeout = setTimeout(() => {
-      if (!el.querySelector("iframe")) setAdLoaded(false);
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % ads.length);
     }, 5000);
-
-    return () => {
-      observer.disconnect();
-      clearTimeout(timeout);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div
-      ref={adRef as any}
-      className="adsbygoogle"
+      className="w-full"
       style={{
-        display: adLoaded ? "inline-block" : "none",
-        width: "100%",
-        height: adLoaded ? "90px" : "0px",
-        transition: "height 0.3s ease",
-        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
-      data-ad-client="ca-pub-9705932480399585"
-      data-ad-slot="3895800011"
-    ></div>
+    >
+      <AnimatePresence mode="wait">
+        <div className={style.card}>
+          <motion.img
+            key={ads[currentIndex]}
+            src={ads[currentIndex]}
+            alt="Test Ad"
+            className={style.img}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          />
+          <div className={style.text}>
+            <h5>Ad</h5>
+          </div>
+        </div>
+      </AnimatePresence>
+    </div>
   );
 }

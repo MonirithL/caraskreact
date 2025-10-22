@@ -25,3 +25,6 @@
   border-radius: 0.8rem;
   background-color: var(--white);
 }
+.qimg{
+  object-fit:contain;
+}

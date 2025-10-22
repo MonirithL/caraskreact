@@ -48,7 +48,7 @@ export default function Subscriptions() {
 
   async function payPersonal() {
     if (user !== null) {
-      const newUser = await buyForUser(user);
+      const newUser = await buyForUser();
       if (newUser !== null) {
         setUser(newUser);
       }
@@ -56,7 +56,7 @@ export default function Subscriptions() {
   }
   async function payGroup() {
     if (user !== null) {
-      const newUser = await buyForGroup(user);
+      const newUser = await buyForGroup();
       if (newUser !== null) {
         setUser(newUser);
       }

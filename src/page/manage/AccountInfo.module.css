@@ -16,6 +16,8 @@
 
     border: 0.2rem solid var(--main-color);
     box-shadow: 0.4rem 0.8rem 1rem rgba(var(--black-hint-num),0.4);
+    cursor: pointer;
+    background: var(--white);
     
 }
 .header{

@@ -65,7 +65,6 @@
     position: relative;
 }
 .group{
-    /* border: 0.2rem solid var(--main-color); */
     box-shadow: -0.3rem 0.4rem 0.4rem rgba(var(--black-hint-num), 0.08),
     -0.3rem 0.8rem 1.8rem rgba(var(--black-hint-num), 0.23)
     ;

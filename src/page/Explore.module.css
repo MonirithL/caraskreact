@@ -151,6 +151,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .result_wrapper{
@@ -196,6 +197,10 @@
 .left > p{
     color: var(--black-hint);
 }
+.left > h5{
+    align-self: self-start;
+    justify-self: start;
+}
 .right{
     transition: color 0.3s ease-out;
     color: var(--black-hint);
@@ -220,4 +225,12 @@
 }
 .loading>* {
     color:var(--main-color);
+}
+.loadingImg{
+  max-width: 100%;    /* never wider than container */
+  max-height: 200px;  /* optional: limit height */
+  width: auto;        /* maintain aspect ratio */
+  height: auto;       /* maintain aspect ratio */
+  display: block;     /* removes inline spacing */
+  margin: 0 auto;    
 }

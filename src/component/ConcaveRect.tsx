@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import style from "./ConcaveRect.module.css";
+import { AnimatePresence, motion } from "motion/react";
 
 interface ConcaveRectProp {
   width: number;
@@ -57,8 +58,23 @@ export default function ConcaveRect({
       }}
     >
       <h3>{question}</h3>
-      <div className={style.qimgWrapper}>
-        <img src={img} alt="" className={style.qimg} />
+      <div
+        className={style.qimgWrapper}
+        style={{ overflow: "hidden", position: "relative" }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={img} // important: triggers animation when img changes
+            src={img}
+            alt=""
+            className={style.qimg}
+            initial={{ x: "100%", opacity: 0 }} // start offscreen right
+            animate={{ x: 0, opacity: 1 }} // slide into place
+            exit={{ x: "-100%", opacity: 0 }} // slide out left
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            style={{ position: "absolute", width: "100%" }} // keep images stacked
+          />
+        </AnimatePresence>
       </div>
     </div>
   );

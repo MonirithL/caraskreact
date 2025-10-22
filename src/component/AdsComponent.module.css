@@ -1,0 +1,22 @@
+.img{
+    height: 90px;
+    width: 100%;
+
+    box-shadow: 0.2rem 0.2rem 0.8rem rgba(var(--black-hint-num),0.4);
+    border-radius: 0.4rem;
+    object-fit: cover;
+}
+.card{
+    width: 100%;
+    display: flex;
+    position: relative;
+    padding: 0.8rem;
+}
+.text{
+    position: absolute;
+    z-index: 1;
+    background-color: var(--white);
+    padding: 0.3rem 0.8rem;
+    border-bottom-right-radius: 0.4rem;
+    border-top-left-radius: 0.4rem;
+}

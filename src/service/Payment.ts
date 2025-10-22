@@ -1,7 +1,7 @@
 import type { User } from "../context/UserContext";
 import { API_BASE } from "./APIBaseUrl";
 
-export async function buyForUser(user: User): Promise<User | null> {
+export async function buyForUser(): Promise<User | null> {
   try {
     const res = await fetch(`${API_BASE}/user/payment`, {
       method: "PUT",
@@ -27,7 +27,7 @@ export async function buyForUser(user: User): Promise<User | null> {
 /**
  * Buy group subscription for a user
  */
-export async function buyForGroup(user: User): Promise<User | null> {
+export async function buyForGroup(): Promise<User | null> {
   try {
     const res = await fetch(`${API_BASE}/user/payment`, {
       method: "PUT",
